@@ -1,0 +1,11 @@
+.profile__title {
+  max-width: 295px;
+  margin: 0 17px 16px 0;
+  display: inline;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 56px;
+  color: #fff;
+}

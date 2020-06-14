@@ -1,0 +1,14 @@
+@import url(./__image-pos/profile__image-pos.css);
+@import url(./__image/profile__image.css);
+@import url(./__content/profile__content.css);
+@import url(./__title/profile__title.css);
+@import url(./__edit/profile__edit.css);
+@import url(./__subtitle/profile__subtitle.css);
+@import url(./__button/profile__button.css);
+
+.profile {
+  width: 100%;
+  display: grid;
+  grid-template-columns: min-content max-content 1fr;
+  margin: 0 0 50px;
+}

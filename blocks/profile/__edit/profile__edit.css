@@ -1,0 +1,8 @@
+.profile__edit {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  background: no-repeat center url(../../../images/edit-pen.svg);
+}
