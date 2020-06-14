@@ -1,2 +1,9 @@
 .places {
+  margin-bottom: 40px;
+}
+
+@media screen and (max-width: 565px) {
+  .places {
+    margin-bottom: 30px;
+  }
 }
