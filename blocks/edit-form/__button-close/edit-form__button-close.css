@@ -26,3 +26,10 @@
 .edit-form__button-close:focus {
   outline: none;
 }
+
+@media screen and (max-width: 565px) {
+  .edit-form__button-close {
+    left: calc(50% + 430px / 2 - 105px);
+    top: calc(50% - 330px / 2 - 50px);
+  }
+}
