@@ -12,8 +12,10 @@ const aboutInput = editForm.querySelector(".edit-form__item_type_about");
 
 function closePopUp() {
   editForm.classList.toggle("edit-form_opened");
-  nameInput.value = nameTarget.textContent;
-  aboutInput.value = aboutTarget.textContent;
+  if (editForm.classList.contains("edit-form_opened")) {
+    nameInput.value = nameTarget.textContent;
+    aboutInput.value = aboutTarget.textContent;
+  }
 }
 
 function formSubmitHandler(evt) {
