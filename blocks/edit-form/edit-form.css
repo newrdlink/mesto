@@ -4,8 +4,8 @@
 @import url(./__form/edit-form__form.css);
 @import url(./__content/edit-form__content.css);
 @import url(./__item/edit-form__item.css);
-@import url(./__item/_name/edit-form__item_name.css);
-@import url(./__item/_about/edit-form__item_about.css);
+@import url(./__item/_type/edit-form__item_type_name.css);
+@import url(./__item/_type/edit-form__item_type_about.css);
 @import url(./__button/edit-form__button.css);
 
 .edit-form {

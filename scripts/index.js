@@ -7,8 +7,8 @@ const editFormSaveClose = editForm.querySelector(".edit-form__button");
 const nameTarget = document.querySelector(".profile__title");
 const aboutTarget = document.querySelector(".profile__subtitle");
 
-const nameInput = editForm.querySelector(".edit-form__item_name");
-const aboutInput = editForm.querySelector(".edit-form__item_about");
+const nameInput = editForm.querySelector(".edit-form__item_type_name");
+const aboutInput = editForm.querySelector(".edit-form__item_type_about");
 
 function closePopUp() {
   editForm.classList.toggle("edit-form_opened");
