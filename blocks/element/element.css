@@ -11,3 +11,9 @@
   position: relative;
   margin-bottom: 21px;
 }
+
+@media screen and (max-width: 565px) {
+  .element:last-of-type {
+    margin-bottom: 0;
+  }
+}
