@@ -1,4 +1,16 @@
 .profile__image {
-  height: 100%;
-  width: 100%;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  grid-column: 1;
+  grid-row: 1/5;
+}
+
+@media screen and (max-width: 565px) {
+  .profile__image {
+    grid-column: 1/3;
+    grid-row: 1;
+    justify-items: center;
+  }
 }

@@ -1,5 +1,4 @@
 .profile__edit {
-  display: inline-block;
   height: 24px;
   width: 24px;
   border: 1px solid #fff;
@@ -7,7 +6,10 @@
   background: no-repeat center url(../../../images/edit-pen.svg);
   cursor: pointer;
   transition: ease-in 0.07s opacity;
-  display: inline-block;
+  align-self: center;
+  grid-column: 3;
+  grid-row: 1;
+  margin-bottom: -10px;
 }
 
 .profile__edit:hover {
@@ -22,5 +24,9 @@
   .profile__edit {
     height: 18px;
     width: 18px;
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+    margin-bottom: 0;
   }
 }

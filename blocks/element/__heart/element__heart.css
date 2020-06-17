@@ -1,5 +1,13 @@
 .element__heart {
   width: 21px;
   height: 19px;
-  fill: none;  
+  border: 0;
+  background: transparent;
+  background-image: url(../../../images/heart.svg);
+  cursor: pointer;
+  transition: ease-in 0.07s opacity;
+}
+
+.element__heart:hover {
+  opacity: 0.6;
 }

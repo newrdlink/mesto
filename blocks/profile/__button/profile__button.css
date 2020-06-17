@@ -10,6 +10,8 @@
   align-self: center;
   cursor: pointer;
   transition: ease-in 0.07s opacity;
+  grid-column: 4;
+  grid-row: 1/5;
 }
 
 .profile__button:hover {
@@ -23,6 +25,8 @@
 @media screen and (max-width: 565px) {
   .profile__button {
     width: 100%;
+    grid-column: 1/3;
+    grid-row: 4/5;
     justify-self: center;
   }
 }

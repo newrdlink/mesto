@@ -1,18 +1,27 @@
 .profile__title {
-  max-width: 295px;
-  margin: 0 17px 16px 0;
-  display: inline;
-  font-family: Inter;
+  max-width: 330px;
+  margin: 15px 17px 10px 0;
+  padding-left: 30px;
+  font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 42px;
   line-height: 56px;
   color: #fff;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  grid-column: 2;
+  grid-row: 1;
 }
 
 @media screen and (max-width: 565px) {
   .profile__title {
-    margin: 0 5px 16px 0;
+    max-width: 200px;
+    margin: 0 17px 0 0;
     font-size: 27px;
+    padding-left: 30px;
+    grid-column: 1/2;
+    grid-row: 2/3;
   }
 }
