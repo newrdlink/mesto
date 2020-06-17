@@ -17,5 +17,4 @@
 .edit-form__item:focus {
   outline-color: rgb(38, 109, 202);
   outline-width: 3px;
-  padding-left: 10px;
 }
