@@ -6,8 +6,10 @@
 @import url(../blocks/main/main.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/places/places.css);
+@import url(../blocks/element-template/element-template.css);
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/edit-form/edit-form.css);
+@import url(../blocks/button-close/button-close.css);
 @import url(../blocks/edit-form/_opened/edit-form_opened.css);

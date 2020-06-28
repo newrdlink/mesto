@@ -1,11 +1,11 @@
-.edit-form__button-close {
+@import url(./_position/button-close_position_edit-form.css);
+
+.button-close {
   display: block;
   background: url(../../../images/close-icon.png);
   width: 50px;
   height: 50px;
   position: absolute;
-  left: calc(50% + 430px / 2 - 8px);
-  top: calc(50% - 330px / 2 - 40px);
   border: 0;
   padding: 0;
   background-position: center;
@@ -14,22 +14,15 @@
   transition-property: opacity, transform;
 }
 
-.edit-form__button-close:hover {
+.button-close:hover {
   opacity: 0.6;
   transform: rotate(45deg);
 }
 
-.edit-form__button-close:active {
+.button-close:active {
   outline: none;
 }
 
-.edit-form__button-close:focus {
+.button-close:focus {
   outline: none;
-}
-
-@media screen and (max-width: 565px) {
-  .edit-form__button-close {
-    left: calc(50% + 430px / 2 - 105px);
-    top: calc(50% - 330px / 2 - 50px);
-  }
 }

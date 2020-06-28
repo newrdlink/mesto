@@ -9,6 +9,7 @@
   border-radius: 10px;
   position: relative;
   margin-bottom: 21px;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 565px) {
