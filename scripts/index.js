@@ -58,9 +58,9 @@ function formAddHandler(evt) {
   const nameElementTarget = document.querySelector(
     ".form__item_type_add-name-element"
   ).value;
-  const altElementTarget = document.querySelector(
-    ".form__item_type_add-name-element"
-  ).value;
+  const altElementTarget =
+    "Фотография " +
+    document.querySelector(".form__item_type_add-name-element").value;
   const linkElementTarget = document.querySelector(
     ".form__item_type_add-link-element"
   ).value;
@@ -89,6 +89,7 @@ const openElementClose = document.querySelector(
 const OpenCloseForm = function (form) {
   form.classList.toggle("form_opened");
 };
+
 ///////////////////////////////////////////////////////// делаем два/три слушателя для кнопки открытия
 editFormOpen.addEventListener("click", function () {
   if (editForm.classList.contains("form_opened") !== true)
@@ -133,6 +134,13 @@ function copyElement(item) {
     .addEventListener("click", function () {
       OpenCloseForm(openElementForm);
     });
+  ///////////////////////////////////////////////////////// делаем лайк элемента
+  element
+    .querySelector(".element__heart")
+    .addEventListener("click", function likeElement(evt) {
+      evt.target.classList.toggle("element__heart_active");
+    });
+  //////////////////////////////////////////////////////////  добавляем элемент в DOM
   allElements.prepend(element);
 }
 // рендерим все карточки/елементы
