@@ -35,7 +35,7 @@
         </section>
         <section class="places">
           <ul class="elements">
-            <template class="element-template">
+            <template id="element" class="element-template">
               <li class="element">
                 <img src="" alt="" class="element__image" />
                 <div class="element__content">
@@ -51,31 +51,71 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
-    <section class="edit-form">
+    <section class="form form_function_edit">
       <button
         type="button"
-        class="button-close button-close_position_edit-form"
+        class="form__button-close form__button-close_place_edit-form"
       ></button>
-      <div class="edit-form__container">
-        <h2 class="edit-form__title">Редактировать профиль</h2>
-        <form name="get-name-about" action="url" class="edit-form__form">
-          <fieldset class="edit-form__content">
+      <div class="form__container">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <form name="get-name-about" action="url" class="form__form">
+          <fieldset class="form__content">
             <input
               name="name"
               type="text"
-              class="edit-form__item edit-form__item_type_name"
+              class="form__item form__item_type_name"
               value=""
             />
             <input
               name="about"
               type="text"
-              class="edit-form__item edit-form__item_type_about"
+              class="form__item form__item_type_about"
               value=""
             />
-            <button type="submit" class="edit-form__button">Сохранить</button>
+            <button type="submit" class="form__button">Сохранить</button>
           </fieldset>
         </form>
       </div>
+    </section>
+    <section class="form form_function_add-element">
+      <button
+        type="button"
+        class="form__button-close form__button-close_place_add-element"
+      ></button>
+      <div class="form__container">
+        <h2 class="form__title">Новое место</h2>
+        <form name="add-element" action="url" class="form__form">
+          <fieldset class="form__content">
+            <input
+              name="name-element"
+              type="text"
+              class="form__item form__item_type_add-name-element"
+              value=""
+              placeholder="Название"
+            />
+            <input
+              name="link-element"
+              type="text"
+              class="form__item form__item_type_add-link-element"
+              value=""
+              placeholder="Ссылка на картинку"
+            />
+            <button type="submit" class="form__button">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+    <section class="form form_function_open-element">
+      <button
+        type="button"
+        class="form__button-close form__button-close_place_open-element"
+      ></button>
+      <figure class="form__image-content">
+        <img src="" alt="" class="form__image" />
+        <figcaption class="form__image-caption">
+          Это подпись картинки
+        </figcaption>
+      </figure>
     </section>
     <script src="./scripts/index.js"></script>
   </body>
