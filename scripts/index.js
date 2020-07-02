@@ -140,6 +140,15 @@ function copyElement(item) {
     .addEventListener("click", function likeElement(evt) {
       evt.target.classList.toggle("element__heart_active");
     });
+  ///////////////////////////////////////////////////////// делаем слушатель для корзины
+  element
+    .querySelector(".element__basket")
+    .addEventListener("click", deleteElement);
+  ///////////////////////////////////////////////////////// делаем кнопку удаления элемента
+  function deleteElement(evt) {
+    const element = evt.target.closest(".element");
+    element.remove();
+  }
   //////////////////////////////////////////////////////////  добавляем элемент в DOM
   allElements.prepend(element);
 }
