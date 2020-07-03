@@ -11,4 +11,5 @@
 @import url(../blocks/element/element.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/form/form.css);
+@import url(../blocks/form/_function/form_function_open-element.css);
 @import url(../blocks/form/_opened/form_opened.css);

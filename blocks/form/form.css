@@ -9,7 +9,9 @@
 @import url(./__button-close/form__button-close.css);
 @import url(./_function/form_function_edit.css);
 @import url(./_function/form_function_add-element.css);
-@import url(./_function/form_function_open-element.css);
+@import url(./__image-content/form__image-content.css);
+@import url(./__image/form__image.css);
+@import url(./__image-caption/form__image-caption.css);
 
 .form {
   position: fixed;
