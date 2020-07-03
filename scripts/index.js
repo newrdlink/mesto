@@ -36,23 +36,21 @@ const initialElements = [
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-///////////////////////////////////////////////////////////// ссылка на список всех элементов в разметке
 const allElements = document.querySelector(".elements");
-/////////////////////////////////////////////////////////////////////// ссылка на шаблон карточки/элемента
 const elementTemplate = document.querySelector(".element-template");
-//////////////////////////////////////////////////////////////////// ссылки на три формы
+
 const editForm = document.querySelector(".form_function_edit");
 const addForm = document.querySelector(".form_function_add-element");
 const openElementForm = document.querySelector(".form_function_open-element");
-/////////////////////////////////////////////////////// создаем три переменных для ссылки на кнопки открытия форм
+
 const editFormOpen = document.querySelector(".profile__edit");
 const addFormOpen = document.querySelector(".profile__button");
-//////////////////////////////////////////// делаем ссылки на контент с разметки и для конечных input для edit Form
+
 const nameTarget = document.querySelector(".profile__title");
 const aboutTarget = document.querySelector(".profile__subtitle");
 const nameInput = editForm.querySelector(".form__item_type_name");
 const aboutInput = editForm.querySelector(".form__item_type_about");
-//////////////////////////////////////////////////////// функция для кнопки submit для add form
+
 function formAddHandler(evt) {
   evt.preventDefault();
   const nameElementTarget = document.querySelector(
@@ -73,9 +71,9 @@ function formAddHandler(evt) {
   console.log(addedElement);
   OpenCloseForm(addForm);
 }
-//////////////////////////////////////////////////////// обработчик события/слушатель для submit в add form
+
 addForm.addEventListener("submit", formAddHandler);
-///////////////////////////////////////////////////////// создаем три ссылки на кнопки закрытия форм
+
 const editFormClose = document.querySelector(
   ".form__button-close_place_edit-form"
 );
@@ -85,11 +83,11 @@ const addFormClose = document.querySelector(
 const openElementClose = document.querySelector(
   ".form__button-close_place_open-element"
 );
-///////////////////////////////////////////////////////// создаем функцию закрытия/открытия формы
+
 const OpenCloseForm = function (form) {
   form.classList.toggle("form_opened");
 };
-///////////////////////////////////////////////////////// делаем два/три слушателя для кнопки открытия
+
 editFormOpen.addEventListener("click", function () {
   if (editForm.classList.contains("form_opened") !== true)
     nameInput.value = nameTarget.textContent;
@@ -99,67 +97,67 @@ editFormOpen.addEventListener("click", function () {
 addFormOpen.addEventListener("click", function () {
   OpenCloseForm(addForm);
 });
-//////////////////////////////////////////////////////// функция для кнопки submit для edit form
+
 function formEditHandler(evt) {
   evt.preventDefault();
   nameTarget.textContent = nameInput.value;
   aboutTarget.textContent = aboutInput.value;
   OpenCloseForm(editForm);
 }
-//////////////////////////////////////////////////////// обработчик события/слушатель для submit в edit form
+
 editForm.addEventListener("submit", formEditHandler);
-//////////////////////////////////////////////////////// делаем трех слушателей для закрытия форм
+
 editFormClose.addEventListener("click", function () {
   OpenCloseForm(editForm);
 });
 addFormClose.addEventListener("click", function () {
   OpenCloseForm(addForm);
 });
-// слушатель для закрытия третего попапа
+
 openElementForm
   .querySelector(".form__button-close_place_open-element")
   .addEventListener("click", function () {
     OpenCloseForm(openElementForm);
   });
-///////////////////////////////////////////////////////// функция, которая копирует карточку
+
 function copyElement(item) {
   const element = elementTemplate.content.cloneNode(true);
   element.querySelector(".element__title").textContent = item.name;
   element.querySelector(".element__image").src = item.link;
   element.querySelector(".element__image").alt = item.alt;
-  ///////////////////////////////////////////////////////// слушатель для открытия третего попапа
+
   element
     .querySelector(".element__image")
     .addEventListener("click", function () {
       addContentOpenForm();
       OpenCloseForm(openElementForm);
     });
-  ///////////////////////////////////////////////////////// делаем лайк элемента
+
   element
     .querySelector(".element__heart")
     .addEventListener("click", function likeElement(evt) {
       evt.target.classList.toggle("element__heart_active");
     });
-  ///////////////////////////////////////////////////////// делаем слушатель для корзины
+
   element
     .querySelector(".element__basket")
     .addEventListener("click", deleteElement);
-  ///////////////////////////////////////////////////////// ссылки для фотографии и caption + функция + слушатель
+
   const imageTarget = document.querySelector(".form__image");
   const imageCaptionTarget = document.querySelector(".form__image-caption");
   function addContentOpenForm() {
     imageTarget.src = item.link;
     imageCaptionTarget.textContent = item.alt;
   }
-  ///////////////////////////////////////////////////////// делаем кнопку удаления элемента
+
   function deleteElement(evt) {
     const element = evt.target.closest(".element");
     element.remove();
   }
-  //////////////////////////////////////////////////////////  добавляем элемент в DOM
+
   allElements.prepend(element);
 }
-///////////////////////////////////////////// рендерим все карточки/елементы
+
 initialElements.forEach(function (item) {
   copyElement(item);
 });
