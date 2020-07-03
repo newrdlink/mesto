@@ -1,6 +1,5 @@
 @import url(./_place/form__button-close_place_edit-form.css);
 @import url(./_place/form__button-close_place_add-element.css);
-@import url(./_place/form__button-close_place_open-element.css);
 
 .form__button-close {
   display: block;

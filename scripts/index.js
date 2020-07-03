@@ -89,7 +89,6 @@ const openElementClose = document.querySelector(
 const OpenCloseForm = function (form) {
   form.classList.toggle("form_opened");
 };
-
 ///////////////////////////////////////////////////////// делаем два/три слушателя для кнопки открытия
 editFormOpen.addEventListener("click", function () {
   if (editForm.classList.contains("form_opened") !== true)
@@ -128,10 +127,11 @@ function copyElement(item) {
   element.querySelector(".element__title").textContent = item.name;
   element.querySelector(".element__image").src = item.link;
   element.querySelector(".element__image").alt = item.alt;
-  // слушатель для открытия третего попапа
+  ///////////////////////////////////////////////////////// слушатель для открытия третего попапа
   element
     .querySelector(".element__image")
     .addEventListener("click", function () {
+      addContentOpenForm();
       OpenCloseForm(openElementForm);
     });
   ///////////////////////////////////////////////////////// делаем лайк элемента
@@ -144,6 +144,13 @@ function copyElement(item) {
   element
     .querySelector(".element__basket")
     .addEventListener("click", deleteElement);
+  ///////////////////////////////////////////////////////// ссылки для фотографии и caption + функция + слушатель
+  const imageTarget = document.querySelector(".form__image");
+  const imageCaptionTarget = document.querySelector(".form__image-caption");
+  function addContentOpenForm() {
+    imageTarget.src = item.link;
+    imageCaptionTarget.textContent = item.alt;
+  }
   ///////////////////////////////////////////////////////// делаем кнопку удаления элемента
   function deleteElement(evt) {
     const element = evt.target.closest(".element");
@@ -152,7 +159,7 @@ function copyElement(item) {
   //////////////////////////////////////////////////////////  добавляем элемент в DOM
   allElements.prepend(element);
 }
-// рендерим все карточки/елементы
+///////////////////////////////////////////// рендерим все карточки/елементы
 initialElements.forEach(function (item) {
   copyElement(item);
 });
