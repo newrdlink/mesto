@@ -84,7 +84,7 @@ openElementPopup
   .addEventListener("click", function () {
     openClosePopup(openElementPopup);
   });
-//////////////////////////////////////////////////////////////////
+
 function createCard(item) {
   const element = elementTemplate.content.cloneNode(true);
   element.querySelector(".element__title").textContent = item.name;
