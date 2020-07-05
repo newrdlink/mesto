@@ -1,0 +1,20 @@
+.popup__item {
+  width: 100%;
+  min-height: 40px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+  padding: 0 0 0 10px;
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000;
+  box-sizing: border-box;
+}
+
+.popup__item:focus {
+  outline-color: rgb(38, 109, 202);
+  outline-width: 3px;
+}

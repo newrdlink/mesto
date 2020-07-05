@@ -39,28 +39,28 @@ const initialElements = [
 const allElements = document.querySelector(".elements");
 const elementTemplate = document.querySelector(".element-template");
 
-const editForm = document.querySelector(".form_function_edit");
-const addForm = document.querySelector(".form_function_add-element");
-const openElementForm = document.querySelector(".form_function_open-element");
+const editPopup = document.querySelector(".popup_function_edit");
+const addPopup = document.querySelector(".popup_function_add-element");
+const openElementPopup = document.querySelector(".popup_function_open-element");
 
-const editFormOpen = document.querySelector(".profile__edit");
-const addFormOpen = document.querySelector(".profile__button");
+const editPopupOpen = document.querySelector(".profile__edit");
+const addPopupOpen = document.querySelector(".profile__button");
 
 const nameTarget = document.querySelector(".profile__title");
 const aboutTarget = document.querySelector(".profile__subtitle");
-const nameInput = editForm.querySelector(".form__item_type_name");
-const aboutInput = editForm.querySelector(".form__item_type_about");
+const nameInput = editPopup.querySelector(".popup__item_type_name");
+const aboutInput = editPopup.querySelector(".popup__item_type_about");
 
-function formAddHandler(evt) {
+function popupAddHandler(evt) {
   evt.preventDefault();
   const nameElementTarget = document.querySelector(
-    ".form__item_type_add-name-element"
+    ".popup__item_type_add-name-element"
   ).value;
   const altElementTarget =
     "Фотография " +
-    document.querySelector(".form__item_type_add-name-element").value;
+    document.querySelector(".popup__item_type_add-name-element").value;
   const linkElementTarget = document.querySelector(
-    ".form__item_type_add-link-element"
+    ".popup__item_type_add-link-element"
   ).value;
   const addedElement = {
     name: nameElementTarget,
@@ -68,84 +68,81 @@ function formAddHandler(evt) {
     link: linkElementTarget,
   };
   copyElement(addedElement);
-  console.log(addedElement);
-  OpenCloseForm(addForm);
+  openClosePopup(addPopup);
 }
 
-addForm.addEventListener("submit", formAddHandler);
+addPopup.addEventListener("submit", popupAddHandler);
 
-const editFormClose = document.querySelector(
-  ".form__button-close_place_edit-form"
+const editPopupClose = document.querySelector(
+  ".popup__button-close_place_edit-popup"
 );
-const addFormClose = document.querySelector(
-  ".form__button-close_place_add-element"
+const addPopupClose = document.querySelector(
+  ".popup__button-close_place_add-element"
 );
 const openElementClose = document.querySelector(
-  ".form__button-close_place_open-element"
+  ".popup__button-close_place_open-element"
 );
-
-const OpenCloseForm = function (form) {
-  form.classList.toggle("form_opened");
+const openClosePopup = function (popup) {
+  popup.classList.toggle("popup_opened");
 };
 
-editFormOpen.addEventListener("click", function () {
-  if (editForm.classList.contains("form_opened") !== true)
+editPopupOpen.addEventListener("click", function () {
+  if (!editPopup.classList.contains("popup_opened"))
     nameInput.value = nameTarget.textContent;
   aboutInput.value = aboutTarget.textContent;
-  OpenCloseForm(editForm);
-});
-addFormOpen.addEventListener("click", function () {
-  OpenCloseForm(addForm);
+  openClosePopup(editPopup);
 });
 
-function formEditHandler(evt) {
+addPopupOpen.addEventListener("click", function () {
+  openClosePopup(addPopup);
+});
+
+function popupEditHandler(evt) {
   evt.preventDefault();
   nameTarget.textContent = nameInput.value;
   aboutTarget.textContent = aboutInput.value;
-  OpenCloseForm(editForm);
+  openClosePopup(editPopup);
 }
 
-editForm.addEventListener("submit", formEditHandler);
+editPopup.addEventListener("submit", popupEditHandler);
 
-editFormClose.addEventListener("click", function () {
-  OpenCloseForm(editForm);
+editPopupClose.addEventListener("click", function () {
+  openClosePopup(editPopup);
 });
-addFormClose.addEventListener("click", function () {
-  OpenCloseForm(addForm);
+addPopupClose.addEventListener("click", function () {
+  openClosePopup(addPopup);
 });
 
-openElementForm
-  .querySelector(".form__button-close_place_open-element")
+openElementPopup
+  .querySelector(".popup__button-close_place_open-element")
   .addEventListener("click", function () {
-    OpenCloseForm(openElementForm);
+    openClosePopup(openElementPopup);
   });
-
+//////////////////////////////////////////////////////////////////
 function copyElement(item) {
   const element = elementTemplate.content.cloneNode(true);
   element.querySelector(".element__title").textContent = item.name;
   element.querySelector(".element__image").src = item.link;
   element.querySelector(".element__image").alt = item.alt;
-
   element
     .querySelector(".element__image")
     .addEventListener("click", function () {
-      addContentOpenForm();
-      OpenCloseForm(openElementForm);
+      addContentOpenPopup();
+      openClosePopup(openElementPopup);
     });
-
   element
     .querySelector(".element__heart")
     .addEventListener("click", function likeElement(evt) {
       evt.target.classList.toggle("element__heart_active");
     });
-
   element
     .querySelector(".element__basket")
     .addEventListener("click", deleteElement);
 
-  const imageTarget = document.querySelector(".form__image");
-  const imageCaptionTarget = document.querySelector(".form__image-caption");
-  function addContentOpenForm() {
+  const imageTarget = document.querySelector(".popup__image");
+  const imageCaptionTarget = document.querySelector(".popup__image-caption");
+
+  function addContentOpenPopup() {
     imageTarget.src = item.link;
     imageCaptionTarget.textContent = item.alt;
   }

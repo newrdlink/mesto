@@ -1,0 +1,10 @@
+.popup__button-close_place_open-element {
+  left: 100%;
+  top: 0;
+  transform: translateY(-100%);
+}
+
+.popup__button-close_place_open-element:hover {
+  opacity: 0.6;
+  transform: translateY(-100%);
+}
