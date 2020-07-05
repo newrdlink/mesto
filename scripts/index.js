@@ -12,26 +12,27 @@ const addPopupOpen = document.querySelector(".profile__button");
 
 const nameTarget = document.querySelector(".profile__title");
 const aboutTarget = document.querySelector(".profile__subtitle");
+
 const nameInput = editPopup.querySelector(".popup__item_type_name");
 const aboutInput = editPopup.querySelector(".popup__item_type_about");
 
+const nameElementTarget = document.querySelector(
+  ".popup__item_type_add-name-element"
+);
+const altElementTarget =
+  "Фотография " + document.querySelector(".popup__item_type_add-name-element");
+const linkElementTarget = document.querySelector(
+  ".popup__item_type_add-link-element"
+);
+
 function popupAddHandler(evt) {
   evt.preventDefault();
-  const nameElementTarget = document.querySelector(
-    ".popup__item_type_add-name-element"
-  ).value;
-  const altElementTarget =
-    "Фотография " +
-    document.querySelector(".popup__item_type_add-name-element").value;
-  const linkElementTarget = document.querySelector(
-    ".popup__item_type_add-link-element"
-  ).value;
   const addedElement = {
-    name: nameElementTarget,
-    alt: altElementTarget,
-    link: linkElementTarget,
+    name: nameElementTarget.value,
+    alt: altElementTarget.value,
+    link: linkElementTarget.value,
   };
-  copyElement(addedElement);
+  createCard(addedElement);
   openClosePopup(addPopup);
 }
 
@@ -51,13 +52,14 @@ const openClosePopup = function (popup) {
 };
 
 editPopupOpen.addEventListener("click", function () {
-  if (!editPopup.classList.contains("popup_opened"))
-    nameInput.value = nameTarget.textContent;
+  nameInput.value = nameTarget.textContent;
   aboutInput.value = aboutTarget.textContent;
   openClosePopup(editPopup);
 });
 
 addPopupOpen.addEventListener("click", function () {
+  nameElementTarget.value = "";
+  linkElementTarget.value = "";
   openClosePopup(addPopup);
 });
 
@@ -83,7 +85,7 @@ openElementPopup
     openClosePopup(openElementPopup);
   });
 //////////////////////////////////////////////////////////////////
-function copyElement(item) {
+function createCard(item) {
   const element = elementTemplate.content.cloneNode(true);
   element.querySelector(".element__title").textContent = item.name;
   element.querySelector(".element__image").src = item.link;
@@ -120,5 +122,5 @@ function copyElement(item) {
 }
 
 initialElements.forEach(function (item) {
-  copyElement(item);
+  createCard(item);
 });
