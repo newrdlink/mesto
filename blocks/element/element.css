@@ -6,7 +6,7 @@
 @import url(./__basket/element__basket.css);
 
 .element {
-  max-width: 282px;
+  width: 282px;
   background: #fff;
   border-radius: 10px;
   position: relative;
