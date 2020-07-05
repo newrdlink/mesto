@@ -19,8 +19,6 @@ const aboutInput = editPopup.querySelector(".popup__item_type_about");
 const nameElementTarget = document.querySelector(
   ".popup__item_type_add-name-element"
 );
-const altElementTarget =
-  "Фотография " + document.querySelector(".popup__item_type_add-name-element");
 const linkElementTarget = document.querySelector(
   ".popup__item_type_add-link-element"
 );
@@ -29,9 +27,10 @@ function popupAddHandler(evt) {
   evt.preventDefault();
   const addedElement = {
     name: nameElementTarget.value,
-    alt: altElementTarget.value,
+    alt: "Фотография " + nameElementTarget.value,
     link: linkElementTarget.value,
   };
+  console.log(addedElement.alt);
   createCard(addedElement);
   openClosePopup(addPopup);
 }
