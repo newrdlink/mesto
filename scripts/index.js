@@ -16,6 +16,10 @@ const aboutTarget = document.querySelector(".profile__subtitle");
 const nameInput = editPopup.querySelector(".popup__item_type_name");
 const aboutInput = editPopup.querySelector(".popup__item_type_about");
 
+const allPopup = Array.from(document.querySelectorAll(".popup"));
+
+const formProfile = document.forms.profile;
+
 const nameElementTarget = document.querySelector(
   ".popup__item_type_add-name-element"
 );
@@ -23,14 +27,42 @@ const linkElementTarget = document.querySelector(
   ".popup__item_type_add-link-element"
 );
 
+allPopup.forEach(function (popup) {
+  popup.addEventListener("click", function (evt) {
+    if (evt.target.classList.contains("popup"))
+      popup.classList.remove("popup_opened");
+  });
+});
+
+function closeEscapeEditForm(evt) {
+  if (evt.key === "Escape") {
+    openClosePopup(editPopup);
+    document.removeEventListener("keydown", closeEscapeEditForm);
+  }
+}
+
+function closeEscapeAddForm(evt) {
+  if (evt.key === "Escape") {
+    openClosePopup(addPopup);
+    document.removeEventListener("keydown", closeEscapeAddForm);
+  }
+}
+
+function closeEscapeOpenElementPopup(evt) {
+  if (
+    evt.key === "Escape" &&
+    openElementPopup.classList.contains("popup_opened")
+  ) {
+    openClosePopup(openElementPopup);
+  }
+}
+
 function popupAddHandler(evt) {
-  evt.preventDefault();
   const addedElement = {
     name: nameElementTarget.value,
     alt: "Фотография " + nameElementTarget.value,
     link: linkElementTarget.value,
   };
-  console.log(addedElement.alt);
   createCard(addedElement);
   openClosePopup(addPopup);
 }
@@ -54,21 +86,21 @@ editPopupOpen.addEventListener("click", function () {
   nameInput.value = nameTarget.textContent;
   aboutInput.value = aboutTarget.textContent;
   openClosePopup(editPopup);
+  document.addEventListener("keydown", closeEscapeEditForm);
 });
 
 addPopupOpen.addEventListener("click", function () {
   nameElementTarget.value = "";
   linkElementTarget.value = "";
   openClosePopup(addPopup);
+  document.addEventListener("keydown", closeEscapeAddForm);
 });
 
 function popupEditHandler(evt) {
-  evt.preventDefault();
   nameTarget.textContent = nameInput.value;
   aboutTarget.textContent = aboutInput.value;
   openClosePopup(editPopup);
 }
-
 editPopup.addEventListener("submit", popupEditHandler);
 
 editPopupClose.addEventListener("click", function () {
@@ -95,6 +127,7 @@ function createCard(item) {
       addContentOpenPopup();
       openClosePopup(openElementPopup);
     });
+  document.addEventListener("keydown", closeEscapeOpenElementPopup);
   element
     .querySelector(".element__heart")
     .addEventListener("click", function likeElement(evt) {

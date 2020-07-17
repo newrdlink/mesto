@@ -53,57 +53,87 @@
       </footer>
     </div>
     <section class="popup popup_function_edit">
-      <button
-        type="button"
-        class="popup__button-close popup__button-close_place_edit-popup"
-      ></button>
       <div class="popup__container">
+        <button
+          type="button"
+          class="popup__button-close popup__button-close_place_edit-popup"
+        ></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="get-name-about" action="url" class="popup__popup">
+        <form name="profile" action="url" class="popup__popup" novalidate>
           <fieldset class="popup__content">
-            <input
-              name="name"
-              type="text"
-              class="popup__item popup__item_type_name"
-              value=""
-            />
-            <input
-              name="about"
-              type="text"
-              class="popup__item popup__item_type_about"
-              value=""
-            />
-            <button type="submit" class="popup__button">Сохранить</button>
+            <label class="popup__item-control">
+              <input
+                name="name"
+                type="text"
+                class="popup__item popup__item_type_name"
+                value=""
+                autocomplete="off"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="popup__item-error" id="name-error"></span>
+            </label>
+            <label class="popup__item-control">
+              <input
+                name="about"
+                type="text"
+                class="popup__item popup__item_type_about"
+                value=""
+                autocomplete="off"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="popup__item-error" id="about-error"></span>
+            </label>
+            <button type="submit" class="popup__button popup__button_disabled">
+              Сохранить
+            </button>
           </fieldset>
         </form>
       </div>
     </section>
     <section class="popup popup_function_add-element">
-      <button
-        type="button"
-        class="popup__button-close popup__button-close_place_add-element"
-      ></button>
       <div class="popup__container">
+        <button
+          type="button"
+          class="popup__button-close popup__button-close_place_add-element"
+        ></button>
         <h2 class="popup__title">Новое место</h2>
-        <form name="add-element" action="url" class="popup__popup">
+        <form name="add-element" action="url" class="popup__popup" novalidate>
           <fieldset class="popup__content">
-            <input
-              name="name-element"
-              type="text"
-              class="popup__item popup__item_type_add-name-element"
-              value=""
-              placeholder="Название"
-              required
-            />
-            <input
-              name="link-element"
-              type="text"
-              class="popup__item popup__item_type_add-link-element"
-              value=""
-              placeholder="Ссылка на картинку"
-              required
-            />
-            <button type="submit" class="popup__button">Сохранить</button>
+            <label>
+              <input
+                name="name-element"
+                type="text"
+                class="popup__item popup__item_type_add-name-element"
+                value=""
+                autocomplete="off"
+                placeholder="Название"
+                minlength="1"
+                maxlength="30"
+                required
+              />
+              <span class="popup__item-error" id="name-element-error"></span>
+            </label>
+            <label>
+              <input
+                name="link-element"
+                type="url"
+                class="popup__item popup__item_type_add-link-element"
+                value=""
+                autocomplete="off"
+                placeholder="Ссылка на картинку"
+                minlength="11"
+                maxlength="200"
+                required
+              />
+              <span class="popup__item-error" id="link-element-error"></span>
+            </label>
+            <button type="submit" class="popup__button">
+              Сохранить
+            </button>
           </fieldset>
         </form>
       </div>
@@ -125,5 +155,6 @@
       </figure>
     </div>
     <script type="module" src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/validate.js"></script>
   </body>
 </html>
