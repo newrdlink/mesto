@@ -26,3 +26,9 @@
 .popup__button-close:focus {
   outline: none;
 }
+
+@media screen and (max-width: 565px) {
+  .popup__button-close {
+    left: 86%;
+  }
+}

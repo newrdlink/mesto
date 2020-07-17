@@ -18,7 +18,7 @@ const aboutInput = editPopup.querySelector(".popup__item_type_about");
 
 const allPopup = Array.from(document.querySelectorAll(".popup"));
 
-const formProfile = document.forms.profile;
+//const formProfile = document.forms.profile;
 
 const nameElementTarget = document.querySelector(
   ".popup__item_type_add-name-element"
@@ -85,6 +85,7 @@ const openClosePopup = function (popup) {
 editPopupOpen.addEventListener("click", function () {
   nameInput.value = nameTarget.textContent;
   aboutInput.value = aboutTarget.textContent;
+  
   openClosePopup(editPopup);
   document.addEventListener("keydown", closeEscapeEditForm);
 });
