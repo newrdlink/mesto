@@ -1,4 +1,3 @@
-const editPopupOpen = document.querySelector(".profile__edit");
 const validateObject = {
   formSelector: ".popup__popup",
   inputSelector: ".popup__item",
