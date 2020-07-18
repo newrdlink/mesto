@@ -33,7 +33,13 @@ allPopup.forEach(function (popup) {
       popup.classList.remove("popup_opened");
   });
 });
-
+///////////
+function closeEscPopup(evt) {
+  if (evt.key === "Escape" && popup.classList.contains("popup_opened")) {
+    openClosePopup(popup);
+  }
+}
+///////////
 function closeEscapeEditForm(evt) {
   if (evt.key === "Escape") {
     openClosePopup(editPopup);
@@ -85,7 +91,7 @@ const openClosePopup = function (popup) {
 editPopupOpen.addEventListener("click", function () {
   nameInput.value = nameTarget.textContent;
   aboutInput.value = aboutTarget.textContent;
-  
+
   openClosePopup(editPopup);
   document.addEventListener("keydown", closeEscapeEditForm);
 });
@@ -150,7 +156,6 @@ function createCard(item) {
     const element = evt.target.closest(".element");
     element.remove();
   }
-
   allElements.prepend(element);
 }
 
