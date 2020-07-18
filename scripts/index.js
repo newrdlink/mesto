@@ -18,8 +18,6 @@ const aboutInput = editPopup.querySelector(".popup__item_type_about");
 
 const allPopup = Array.from(document.querySelectorAll(".popup"));
 
-//const formProfile = document.forms.profile;
-
 const nameElementTarget = document.querySelector(
   ".popup__item_type_add-name-element"
 );
@@ -33,13 +31,13 @@ allPopup.forEach(function (popup) {
       popup.classList.remove("popup_opened");
   });
 });
-///////////
+
 function closeEscPopup(evt) {
   if (evt.key === "Escape" && popup.classList.contains("popup_opened")) {
     openClosePopup(popup);
   }
 }
-///////////
+
 function closeEscapeEditForm(evt) {
   if (evt.key === "Escape") {
     openClosePopup(editPopup);
