@@ -32,21 +32,15 @@ allPopup.forEach(function (popup) {
   });
 });
 
-function closeEscPopup(evt) {
-  if (evt.key === "Escape" && popup.classList.contains("popup_opened")) {
-    openClosePopup(popup);
-  }
-}
-
 function closeEscapeEditForm(evt) {
-  if (evt.key === "Escape") {
+  if (evt.key === "Escape" && editPopup.classList.contains("popup_opened")) {
     openClosePopup(editPopup);
     document.removeEventListener("keydown", closeEscapeEditForm);
   }
 }
 
 function closeEscapeAddForm(evt) {
-  if (evt.key === "Escape") {
+  if (evt.key === "Escape" && addPopup.classList.contains("popup_opened")) {
     openClosePopup(addPopup);
     document.removeEventListener("keydown", closeEscapeAddForm);
   }
@@ -89,7 +83,6 @@ const openClosePopup = function (popup) {
 editPopupOpen.addEventListener("click", function () {
   nameInput.value = nameTarget.textContent;
   aboutInput.value = aboutTarget.textContent;
-
   openClosePopup(editPopup);
   document.addEventListener("keydown", closeEscapeEditForm);
 });
