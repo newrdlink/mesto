@@ -27,7 +27,7 @@ function setInputListeners(
   toggleButtonState(inputAll, buttonElement, inactiveButtonClass);
 
   inputAll.forEach((input) => {
-    input.addEventListener("input", (_) => {
+    input.addEventListener("input", () => {
       checkInput(input, rest);
       toggleButtonState(inputAll, buttonElement, inactiveButtonClass);
     });
@@ -60,11 +60,7 @@ function checkInput(input, rest) {
   }
 }
 
-function setError(
-  input,
-  errorMessage,
-  { inputErrorClass, errorClass, ...rest }
-) {
+function setError(input, errorMessage, { inputErrorClass, errorClass }) {
   const errorPlace = getErrorPlace(input);
   input.classList.add(inputErrorClass);
   errorPlace.textContent = errorMessage;

@@ -1,9 +1,3 @@
-// Добрый день, Алексей!
-// Поскольку сегодня дэдлайн по работе, то я пока исправил только то,
-// что в Ваших коментариях помечено как "НАДО ИСПРАВИТЬ".
-// По ходу дня постараюсь сделать те вещи, которые помечены Вами "можно лучше"
-// в общем комментарии, и буду перезаливать работу. Спасибо!
-
 import { initialElements } from "./elements.js";
 
 const allElements = document.querySelector(".elements");
@@ -33,12 +27,12 @@ const nameElementTarget = document.querySelector(
 const linkElementTarget = document.querySelector(
   ".popup__item_type_add-link-element"
 );
-// ***функция закрытия попапов по клавише ESC*** // - 1; 2
+
 const closeEscPopup = (popup) => (evt) => {
   if (evt.key === "Escape" && popup.classList.contains("popup_opened")) {
     openClosePopup(popup);
-    document.removeEventListener("keydown", closeEscPopup(popup));
   }
+  document.removeEventListener("keydown", closeEscPopup(popup));
 };
 
 allPopup.forEach(function (popup) {
@@ -49,12 +43,12 @@ allPopup.forEach(function (popup) {
 });
 
 function popupAddHandler() {
-  const addedElement = {
+  const element = {
     name: nameElementTarget.value,
     alt: "Фотография " + nameElementTarget.value,
     link: linkElementTarget.value,
   };
-  createCard(addedElement);
+  renderCard(createCard(element), allElements);
   openClosePopup(addPopup);
 }
 
@@ -74,14 +68,14 @@ editPopupOpen.addEventListener("click", function () {
   nameInput.value = nameTarget.textContent;
   aboutInput.value = aboutTarget.textContent;
   openClosePopup(editPopup);
-  document.addEventListener("keydown", closeEscPopup(editPopup)); // слушатель для закрытия по ESC
+  document.addEventListener("keydown", closeEscPopup(editPopup));
 });
 
 addPopupOpen.addEventListener("click", function () {
   nameElementTarget.value = "";
   linkElementTarget.value = "";
   openClosePopup(addPopup);
-  document.addEventListener("keydown", closeEscPopup(addPopup)); // слушатель для закрытия по ESC
+  document.addEventListener("keydown", closeEscPopup(addPopup));
 });
 
 function popupEditHandler() {
@@ -104,26 +98,23 @@ openElementPopup
     openClosePopup(openElementPopup);
   });
 
-// функция удаления карточки - 3
 function deleteElement(evt) {
   const element = evt.target.closest(".element");
   element.remove();
 }
 
-// функция добавления ссылки и title карточки - 3
 function addContentOpenPopup(item) {
   imageTarget.src = item.link;
   imageCaptionTarget.textContent = item.alt;
 }
-// Функция добавления карточек - 5
-function addCard(element, allElements) {
+
+function renderCard(element, allElements) {
   allElements.prepend(element);
-  return element;
 }
 
 function createCard(item) {
   const element = elementTemplate.content.cloneNode(true);
-  const elementImage = element.querySelector(".element__image"); // - 4
+  const elementImage = element.querySelector(".element__image");
 
   element.querySelector(".element__title").textContent = item.name;
   elementImage.src = item.link;
@@ -132,7 +123,7 @@ function createCard(item) {
     addContentOpenPopup(item);
     openClosePopup(openElementPopup);
   });
-  document.addEventListener("keydown", closeEscPopup(openElementPopup)); // слушатель для закрытия по ESC
+  document.addEventListener("keydown", closeEscPopup(openElementPopup));
   element
     .querySelector(".element__heart")
     .addEventListener("click", function likeElement(evt) {
@@ -141,9 +132,10 @@ function createCard(item) {
   element
     .querySelector(".element__basket")
     .addEventListener("click", deleteElement);
-  addCard(element, allElements);
+  return element;
 }
 
 initialElements.forEach(function (item) {
-  createCard(item);
+  const element = createCard(item);
+  renderCard(element, allElements);
 });
