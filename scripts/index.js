@@ -32,7 +32,6 @@ const closeEscPopup = (popup) => (evt) => {
   if (evt.key === "Escape" && popup.classList.contains("popup_opened")) {
     openClosePopup(popup);
   }
-  document.removeEventListener("keydown", closeEscPopup(popup));
 };
 
 allPopup.forEach(function (popup) {
@@ -62,6 +61,7 @@ const addPopupClose = document.querySelector(
 );
 const openClosePopup = function (popup) {
   popup.classList.toggle("popup_opened");
+  document.removeEventListener("keydown", closeEscPopup(popup));
 };
 
 editPopupOpen.addEventListener("click", function () {
