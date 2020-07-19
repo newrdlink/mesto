@@ -1,3 +1,9 @@
+// Добрый день, Алексей!
+// Поскольку сегодня дэдлайн по работе, то я пока исправил только то,
+// что в Ваших коментариях помечено как "НАДО ИСПРАВИТЬ".
+// По ходу дня постараюсь сделать те вещи, которые помечены Вами "можно лучше"
+// в общем комментарии, и буду перезаливать работу. Спасибо!
+
 import { initialElements } from "./elements.js";
 
 const allElements = document.querySelector(".elements");
@@ -16,6 +22,9 @@ const aboutTarget = document.querySelector(".profile__subtitle");
 const nameInput = editPopup.querySelector(".popup__item_type_name");
 const aboutInput = editPopup.querySelector(".popup__item_type_about");
 
+const imageTarget = document.querySelector(".popup__image");
+const imageCaptionTarget = document.querySelector(".popup__image-caption");
+
 const allPopup = Array.from(document.querySelectorAll(".popup"));
 
 const nameElementTarget = document.querySelector(
@@ -24,7 +33,7 @@ const nameElementTarget = document.querySelector(
 const linkElementTarget = document.querySelector(
   ".popup__item_type_add-link-element"
 );
-// ***функция закрытия попапов по клавише ESC*** // - 1
+// ***функция закрытия попапов по клавише ESC*** // - 1; 2
 const closeEscPopup = (popup) => (evt) => {
   if (evt.key === "Escape" && popup.classList.contains("popup_opened")) {
     openClosePopup(popup);
@@ -39,7 +48,7 @@ allPopup.forEach(function (popup) {
   });
 });
 
-function popupAddHandler(evt) {
+function popupAddHandler() {
   const addedElement = {
     name: nameElementTarget.value,
     alt: "Фотография " + nameElementTarget.value,
@@ -56,9 +65,6 @@ const editPopupClose = document.querySelector(
 );
 const addPopupClose = document.querySelector(
   ".popup__button-close_place_add-element"
-);
-const openElementClose = document.querySelector(
-  ".popup__button-close_place_open-element"
 );
 const openClosePopup = function (popup) {
   popup.classList.toggle("popup_opened");
@@ -78,7 +84,7 @@ addPopupOpen.addEventListener("click", function () {
   document.addEventListener("keydown", closeEscPopup(addPopup)); // слушатель для закрытия по ESC
 });
 
-function popupEditHandler(evt) {
+function popupEditHandler() {
   nameTarget.textContent = nameInput.value;
   aboutTarget.textContent = aboutInput.value;
   openClosePopup(editPopup);
@@ -98,17 +104,34 @@ openElementPopup
     openClosePopup(openElementPopup);
   });
 
+// функция удаления карточки - 3
+function deleteElement(evt) {
+  const element = evt.target.closest(".element");
+  element.remove();
+}
+
+// функция добавления ссылки и title карточки - 3
+function addContentOpenPopup(item) {
+  imageTarget.src = item.link;
+  imageCaptionTarget.textContent = item.alt;
+}
+// Функция добавления карточек - 5
+function addCard(element, allElements) {
+  allElements.prepend(element);
+  return element;
+}
+
 function createCard(item) {
   const element = elementTemplate.content.cloneNode(true);
+  const elementImage = element.querySelector(".element__image"); // - 4
+
   element.querySelector(".element__title").textContent = item.name;
-  element.querySelector(".element__image").src = item.link;
-  element.querySelector(".element__image").alt = item.alt;
-  element
-    .querySelector(".element__image")
-    .addEventListener("click", function () {
-      addContentOpenPopup();
-      openClosePopup(openElementPopup);
-    });
+  elementImage.src = item.link;
+  elementImage.alt = item.alt;
+  elementImage.addEventListener("click", function () {
+    addContentOpenPopup(item);
+    openClosePopup(openElementPopup);
+  });
   document.addEventListener("keydown", closeEscPopup(openElementPopup)); // слушатель для закрытия по ESC
   element
     .querySelector(".element__heart")
@@ -118,20 +141,7 @@ function createCard(item) {
   element
     .querySelector(".element__basket")
     .addEventListener("click", deleteElement);
-
-  const imageTarget = document.querySelector(".popup__image");
-  const imageCaptionTarget = document.querySelector(".popup__image-caption");
-
-  function addContentOpenPopup() {
-    imageTarget.src = item.link;
-    imageCaptionTarget.textContent = item.alt;
-  }
-
-  function deleteElement(evt) {
-    const element = evt.target.closest(".element");
-    element.remove();
-  }
-  allElements.prepend(element);
+  addCard(element, allElements);
 }
 
 initialElements.forEach(function (item) {
