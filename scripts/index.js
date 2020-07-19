@@ -67,6 +67,7 @@ const openClosePopup = function (popup) {
 editPopupOpen.addEventListener("click", function () {
   nameInput.value = nameTarget.textContent;
   aboutInput.value = aboutTarget.textContent;
+  disableButton(editPopup);
   openClosePopup(editPopup);
   document.addEventListener("keydown", closeEscPopup(editPopup));
 });
@@ -74,6 +75,7 @@ editPopupOpen.addEventListener("click", function () {
 addPopupOpen.addEventListener("click", function () {
   nameElementTarget.value = "";
   linkElementTarget.value = "";
+  disableButton(addPopup);
   openClosePopup(addPopup);
   document.addEventListener("keydown", closeEscPopup(addPopup));
 });
@@ -139,3 +141,9 @@ initialElements.forEach(function (item) {
   const element = createCard(item);
   renderCard(element, allElements);
 });
+
+function disableButton(data) {
+  const submitButton = data.querySelector(".popup__button");
+  submitButton.classList.add("popup__button_disabled");
+  submitButton.disabled = true;
+}
