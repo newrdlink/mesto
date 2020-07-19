@@ -24,6 +24,13 @@ const nameElementTarget = document.querySelector(
 const linkElementTarget = document.querySelector(
   ".popup__item_type_add-link-element"
 );
+// ***функция закрытия попапов по клавише ESC*** // - 1
+const closeEscPopup = (popup) => (evt) => {
+  if (evt.key === "Escape" && popup.classList.contains("popup_opened")) {
+    openClosePopup(popup);
+    document.removeEventListener("keydown", closeEscPopup(popup));
+  }
+};
 
 allPopup.forEach(function (popup) {
   popup.addEventListener("click", function (evt) {
@@ -31,29 +38,6 @@ allPopup.forEach(function (popup) {
       popup.classList.remove("popup_opened");
   });
 });
-
-function closeEscapeEditForm(evt) {
-  if (evt.key === "Escape" && editPopup.classList.contains("popup_opened")) {
-    openClosePopup(editPopup);
-    document.removeEventListener("keydown", closeEscapeEditForm);
-  }
-}
-
-function closeEscapeAddForm(evt) {
-  if (evt.key === "Escape" && addPopup.classList.contains("popup_opened")) {
-    openClosePopup(addPopup);
-    document.removeEventListener("keydown", closeEscapeAddForm);
-  }
-}
-
-function closeEscapeOpenElementPopup(evt) {
-  if (
-    evt.key === "Escape" &&
-    openElementPopup.classList.contains("popup_opened")
-  ) {
-    openClosePopup(openElementPopup);
-  }
-}
 
 function popupAddHandler(evt) {
   const addedElement = {
@@ -84,14 +68,14 @@ editPopupOpen.addEventListener("click", function () {
   nameInput.value = nameTarget.textContent;
   aboutInput.value = aboutTarget.textContent;
   openClosePopup(editPopup);
-  document.addEventListener("keydown", closeEscapeEditForm);
+  document.addEventListener("keydown", closeEscPopup(editPopup)); // слушатель для закрытия по ESC
 });
 
 addPopupOpen.addEventListener("click", function () {
   nameElementTarget.value = "";
   linkElementTarget.value = "";
   openClosePopup(addPopup);
-  document.addEventListener("keydown", closeEscapeAddForm);
+  document.addEventListener("keydown", closeEscPopup(addPopup)); // слушатель для закрытия по ESC
 });
 
 function popupEditHandler(evt) {
@@ -125,7 +109,7 @@ function createCard(item) {
       addContentOpenPopup();
       openClosePopup(openElementPopup);
     });
-  document.addEventListener("keydown", closeEscapeOpenElementPopup);
+  document.addEventListener("keydown", closeEscPopup(openElementPopup)); // слушатель для закрытия по ESC
   element
     .querySelector(".element__heart")
     .addEventListener("click", function likeElement(evt) {
