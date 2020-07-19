@@ -142,8 +142,8 @@ initialElements.forEach(function (item) {
   renderCard(element, allElements);
 });
 
-function disableButton(data) {
-  const submitButton = data.querySelector(".popup__button");
+function disableButton(form) {
+  const submitButton = form.querySelector(".popup__button");
   submitButton.classList.add("popup__button_disabled");
   submitButton.disabled = true;
 }
