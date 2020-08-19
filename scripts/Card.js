@@ -1,14 +1,15 @@
 import { openElementPopup, openPopup } from "./utils.js";
 export class Card {
-  constructor(name, alt, link) {
+  constructor(name, alt, link, templateSelector) {
     this._name = name;
     this._alt = alt;
     this._link = link;
+    this._templateSelector = templateSelector;
   }
   // получаем, копируем и возвращаем разметку всей карточки
   _getTemplateCard() {
     const cardElement = document
-      .querySelector(".element-template")
+      .querySelector(this._templateSelector)
       .content.querySelector(".element")
       .cloneNode(true);
     return cardElement;
@@ -25,8 +26,9 @@ export class Card {
   };
   // метод наполнения значений в открытом попапе
   _handleOpenCardImage() {
-    openElementPopup.querySelector(".popup__image").src = this._link;
-    openElementPopup.querySelector(".popup__image").alt = this._alt;
+    const imagePopup = openElementPopup.querySelector(".popup__image");
+    imagePopup.src = this._link;
+    imagePopup.alt = this._alt;
     openElementPopup.querySelector(
       ".popup__image-caption"
     ).textContent = this._alt;

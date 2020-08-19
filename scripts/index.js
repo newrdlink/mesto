@@ -1,9 +1,7 @@
 import { allElements } from "./elements.js";
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
-import { openElementPopup, openPopup } from "./utils.js";
-// ссылка на попап EDIT
-const editPopup = document.querySelector(".popup_function_edit");
+import { openElementPopup, openPopup, closePopup, editPopup } from "./utils.js";
 // ссылка на кнопку закрытия попапа EDIT
 const editPopupClose = editPopup.querySelector(
   ".popup__button-close_place_edit-popup"
@@ -34,7 +32,6 @@ editPopupOpen.addEventListener("click", function () {
   aboutInput.value = aboutTarget.textContent;
   disableButton(editPopup);
   openPopup(editPopup);
-  document.addEventListener("keydown", closeEscPopup(editPopup));
 });
 // ссылка на попап ADD
 const addPopup = document.querySelector(".popup_function_add-element");
@@ -54,7 +51,6 @@ addPopupOpen.addEventListener("click", function () {
   linkElementTarget.value = "";
   disableButton(addPopup);
   openPopup(addPopup);
-  document.addEventListener("keydown", closeEscPopup(addPopup));
 });
 // ссылка на кнопку закрытия попапа ADD
 const addPopupClose = addPopup.querySelector(
@@ -95,19 +91,6 @@ const allPopup = Array.from(document.querySelectorAll(".popup"));
 const buttonClosePopup = openElementPopup.querySelector(
   ".popup__button-close_place_open-element"
 );
-
-// функция закрытия попапа
-const closePopup = (popup) => {
-  popup.classList.remove("popup_opened");
-};
-// функция закрытия попапа при клике по ESC
-const closeEscPopup = (popup) => (evt) => {
-  if (evt.key === "Escape") {
-    closePopup(popup);
-  }
-};
-// слушатель для закрытия попапа по ESC
-document.addEventListener("keydown", closeEscPopup(openElementPopup));
 // слушатель на кнопку закрытия
 buttonClosePopup.addEventListener("click", function () {
   closePopup(openElementPopup);
@@ -115,13 +98,12 @@ buttonClosePopup.addEventListener("click", function () {
 // установка слушателей для закрытия попапов по клику оверлей
 allPopup.forEach(function (popup) {
   popup.addEventListener("click", function (evt) {
-    if (evt.target.classList.contains("popup"))
-      popup.classList.remove("popup_opened");
+    if (evt.target.classList.contains("popup")) closePopup(popup);
   });
 });
 // перебираем стартовый массив
 allElements.forEach((item) => {
-  const card = new Card(item.name, item.alt, item.link);
+  const card = new Card(item.name, item.alt, item.link, ".element-template");
   const cardElement = card.makeCard();
   elementContainer.prepend(cardElement);
 });
@@ -130,7 +112,8 @@ function popupAddHandler() {
   const element = new Card(
     nameElementTarget.value,
     "Фотография " + nameElementTarget.value,
-    linkElementTarget.value
+    linkElementTarget.value,
+    ".element-template"
   );
   const elementNew = element.makeCard();
   elementContainer.prepend(elementNew);
