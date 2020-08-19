@@ -34,18 +34,7 @@
           <button type="button" class="profile__button"></button>
         </section>
         <div class="places">
-          <ul class="elements">
-            <template id="element" class="element-template">
-              <li class="element">
-                <img src="" alt="" class="element__image" />
-                <button type="button" class="element__basket"></button>
-                <div class="element__content">
-                  <h3 class="element__title"></h3>
-                  <button type="button" class="element__heart"></button>
-                </div>
-              </li>
-            </template>
-          </ul>
+          <ul class="elements"></ul>
         </div>
       </main>
       <footer class="footer">
@@ -152,6 +141,16 @@
         </figcaption>
       </figure>
     </div>
+    <template id="element" class="element-template">
+      <li class="element">
+        <img src="" alt="" class="element__image" />
+        <button type="button" class="element__basket"></button>
+        <div class="element__content">
+          <h3 class="element__title"></h3>
+          <button type="button" class="element__heart"></button>
+        </div>
+      </li>
+    </template>
     <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

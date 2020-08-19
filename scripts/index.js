@@ -1,6 +1,7 @@
 import { allElements } from "./elements.js";
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
+import { openElementPopup, openPopup } from "./utils.js";
 // ссылка на попап EDIT
 const editPopup = document.querySelector(".popup_function_edit");
 // ссылка на кнопку закрытия попапа EDIT
@@ -87,17 +88,14 @@ const addForm = new FormValidator(validateConfigObject, addPopup);
 addForm.enableValidation();
 // контейнер всех карточек
 const elementContainer = document.querySelector(".elements");
-// ссылка на попап с картинкой
-const openElementPopup = document.querySelector(".popup_function_open-element");
+
 // ссылка на все попапы (массив)
 const allPopup = Array.from(document.querySelectorAll(".popup"));
 // ссылка на кнопку закрытияч попапа
 const buttonClosePopup = openElementPopup.querySelector(
   ".popup__button-close_place_open-element"
 );
-// функция открытия попапа с картинкой
-//const openImageElement = () => openElementPopup.classList.add("popup_opened");
-const openPopup = (popup) => popup.classList.add("popup_opened");
+
 // функция закрытия попапа
 const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
@@ -139,5 +137,3 @@ function popupAddHandler() {
   closePopup(addPopup);
 }
 addPopup.addEventListener("submit", popupAddHandler);
-
-export { openElementPopup, openPopup };
