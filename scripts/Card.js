@@ -1,4 +1,4 @@
-import { openElementPopup, openImageElement } from "./index.js";
+import { openElementPopup, openPopup } from "./index.js";
 export class Card {
   constructor(name, alt, link) {
     this._name = name;
@@ -30,7 +30,7 @@ export class Card {
     openElementPopup.querySelector(
       ".popup__image-caption"
     ).textContent = this._alt;
-    openImageElement();
+    openPopup(openElementPopup);
   }
   // метод установки слушателей на элементы карточки
   _setEventListeners() {
