@@ -20,17 +20,12 @@ const nameTarget = document.querySelector(".profile__title");
 const aboutInput = editPopup.querySelector(".popup__item_type_about");
 // ссылка на SUBTITLE в разметке
 const aboutTarget = document.querySelector(".profile__subtitle");
-// функция блокировки кнопки SUBMIT
-function disableButton(form) {
-  const submitButton = form.querySelector(".popup__button");
-  submitButton.classList.add("popup__button_disabled");
-  submitButton.disabled = true;
-}
 // открытие попапа EDIT
 editPopupOpen.addEventListener("click", function () {
   nameInput.value = nameTarget.textContent;
   aboutInput.value = aboutTarget.textContent;
-  disableButton(editPopup);
+  editForm.disableButton();
+  editForm.errorDisable();
   openPopup(editPopup);
 });
 // ссылка на попап ADD
@@ -49,7 +44,8 @@ const linkElementTarget = document.querySelector(
 addPopupOpen.addEventListener("click", function () {
   nameElementTarget.value = "";
   linkElementTarget.value = "";
-  disableButton(addPopup);
+  addForm.disableButton();
+  addForm.errorDisable();
   openPopup(addPopup);
 });
 // ссылка на кнопку закрытия попапа ADD
@@ -84,7 +80,6 @@ const addForm = new FormValidator(validateConfigObject, addPopup);
 addForm.enableValidation();
 // контейнер всех карточек
 const elementContainer = document.querySelector(".elements");
-
 // ссылка на все попапы (массив)
 const allPopup = Array.from(document.querySelectorAll(".popup"));
 // ссылка на кнопку закрытияч попапа

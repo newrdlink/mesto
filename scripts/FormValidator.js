@@ -10,10 +10,8 @@ export class FormValidator {
   }
   // метод установки ошибки для input
   _setError = (input, errorMessage) => {
-    //debugger
     const errorPlace = this._form.querySelector(`#${input.name}-error`);
     input.classList.add(this._inputErrorClass);
-    //console.log(errorPlace);
     errorPlace.textContent = errorMessage;
     errorPlace.classList.add(this._errorClass);
   };
@@ -64,7 +62,25 @@ export class FormValidator {
       });
     });
   };
-  // метод запуска валидации и отключение отправик submit
+  // метод блокировки кнопки Submit
+  disableButton() {
+    const buttonElement = this._form.querySelector(this._submitButtonSelector);
+    buttonElement.classList.add(this._inactiveButtonClass);
+    buttonElement.disabled = true;
+  }
+  // метод очистки ошибок полей
+  errorDisable() {
+    const inputs = this._form.querySelectorAll(this._inputSelector);
+    const errors = this._form.querySelectorAll(`${this._inputSelector}-error`);
+    inputs.forEach((item) => {
+      item.classList.remove(this._inputErrorClass);
+    });
+    errors.forEach((item) => {
+      item.textContent = "";
+      item.classList.remove(this._errorClass);
+    });
+  }
+  // метод запуска валидации и отключение отправки submit
   enableValidation() {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();

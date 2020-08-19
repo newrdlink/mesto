@@ -23,6 +23,7 @@ export class Card {
   // метод удаления карточки
   _handleRemoveCard = () => {
     this._element.remove();
+    this._element = null;
   };
   // метод наполнения значений в открытом попапе
   _handleOpenCardImage() {

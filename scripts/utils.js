@@ -12,7 +12,7 @@ const closePopup = (popup) => {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closeEscPopup(popup));
 };
-// функция закрытия попапа при клике по ESC
+// функция закрытия попапа при нажатии по ESC
 const closeEscPopup = (popup) => (evt) => {
   if (evt.key === "Escape") {
     closePopup(popup);
