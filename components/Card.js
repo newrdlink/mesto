@@ -1,9 +1,9 @@
-import { openElementPopup, openPopup } from "./utils.js";
-export class Card {
-  constructor(name, alt, link, templateSelector) {
-    this._name = name;
-    this._alt = alt;
-    this._link = link;
+export default class Card {
+  constructor({ dataCard, handleCardClick }, templateSelector) {
+    this._name = dataCard.name;
+    this._alt = dataCard.alt;
+    this._link = dataCard.link;
+    this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector;
   }
   // получаем, копируем и возвращаем разметку всей карточки
@@ -25,16 +25,6 @@ export class Card {
     this._element.remove();
     this._element = null;
   };
-  // метод наполнения значений в открытом попапе
-  _handleOpenCardImage() {
-    const imagePopup = openElementPopup.querySelector(".popup__image");
-    imagePopup.src = this._link;
-    imagePopup.alt = this._alt;
-    openElementPopup.querySelector(
-      ".popup__image-caption"
-    ).textContent = this._alt;
-    openPopup(openElementPopup);
-  }
   // метод установки слушателей на элементы карточки
   _setEventListeners() {
     this._element
@@ -48,7 +38,7 @@ export class Card {
     this._element
       .querySelector(".element__image")
       .addEventListener("click", () => {
-        this._handleOpenCardImage();
+        this._handleCardClick();
       });
   }
   // создаем готовую карточку (публичный метод)
