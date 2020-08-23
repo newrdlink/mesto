@@ -5,6 +5,8 @@ import { FormValidator } from "../components/FormValidator.js";
 import { openPopup, editPopup } from "../scripts/utils.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 // ссылка на кнопку открытия попапа EDIT
 const editPopupOpen = document.querySelector(".profile__edit");
 // ссылка на input name в EDITFORM
@@ -15,13 +17,28 @@ const nameTarget = document.querySelector(".profile__title");
 const aboutInput = editPopup.querySelector(".popup__item_type_about");
 // ссылка на SUBTITLE в разметке
 const aboutTarget = document.querySelector(".profile__subtitle");
+// создаем экземпляр для EDIT FORM '8'
+const editFormPopup = new PopupWithForm(".popup_function_edit", () => {
+  const inputsData = editFormPopup._getInputValues();
+  userInfo.setUserInfo(inputsData);
+  editFormPopup.close();
+});
+editFormPopup.setEventListeners();
+// создаем экземпляр для UserInfo
+const userInfo = new UserInfo({
+  name: nameTarget,
+  about: aboutTarget,
+});
 // открытие попапа EDIT
 editPopupOpen.addEventListener("click", function () {
-  nameInput.value = nameTarget.textContent;
-  aboutInput.value = aboutTarget.textContent;
+  // записываем данные USER с разметки в объект
+  const infoProfile = userInfo.getUserInfo();
+  // записываем данные в inputs при открытии EDIT FORM
+  nameInput.value = infoProfile.name;
+  aboutInput.value = infoProfile.about;
   editForm.disableButton();
   editForm.errorDisable();
-  openPopup(editPopup);
+  editCloseOpenPopup.open();
 });
 // ссылка на попап ADD
 const addPopup = document.querySelector(".popup_function_add-element");
@@ -41,7 +58,7 @@ addPopupOpen.addEventListener("click", function () {
   linkElementTarget.value = "";
   addForm.disableButton();
   addForm.errorDisable();
-  openPopup(addPopup);
+  addCloseOpenPopup.open();
 });
 // объект настроек валидации
 const validateConfigObject = {
@@ -55,26 +72,11 @@ const validateConfigObject = {
 // создаем экземпляр валидации для EDIT FORM
 const editForm = new FormValidator(validateConfigObject, editPopup);
 editForm.enableValidation();
-// функция сохранения информации в EDIT Profile
-function popupEditHandler() {
-  nameTarget.textContent = nameInput.value;
-  aboutTarget.textContent = aboutInput.value;
-  //closePopup(editPopup);
-}
-editPopup.addEventListener("submit", popupEditHandler);
 // создаем экземпляр валидации для ADD FORM
 const addForm = new FormValidator(validateConfigObject, addPopup);
 addForm.enableValidation();
 // контейнер всех карточек
 const elementContainer = document.querySelector(".elements");
-// ссылка на все попапы (массив)
-// const allPopup = Array.from(document.querySelectorAll(".popup"));
-// установка слушателей для закрытия попапов по клику оверлей
-// allPopup.forEach(function (popup) {
-//   popup.addEventListener("click", function (evt) {
-//     if (evt.target.classList.contains("popup")) closePopup(popup);
-//   });
-// });
 // инициализируем стартовык карточки - перебираем стартовый массив '8'
 const cardList = new Section(
   {
@@ -106,7 +108,7 @@ addCloseOpenPopup.setEventListeners();
 // создаем экземпляр для закрытия/открытия OPENED popup '8'
 const openedCloseOpenPopup = new Popup(".popup_function_open-element");
 openedCloseOpenPopup.setEventListeners();
-// создаем экземпляр для попапа с IMAGE
+// создаем экземпляр для попапа с IMAGE '8'
 const popupWithImage = new PopupWithImage(".popup_function_open-element");
 popupWithImage.setEventListeners();
 // добавление новой карточки '8'
@@ -116,7 +118,6 @@ function popupAddHandler() {
     alt: "Фотография " + nameElementTarget.value,
     link: linkElementTarget.value,
   };
-
   const element = new Card(
     {
       dataCard,
@@ -128,6 +129,6 @@ function popupAddHandler() {
   );
   const elementNew = element.makeCard();
   elementContainer.prepend(elementNew);
-  //closePopup(addPopup);
+  addCloseOpenPopup.close();
 }
 addPopup.addEventListener("submit", popupAddHandler);

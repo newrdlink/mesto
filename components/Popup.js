@@ -33,6 +33,9 @@ export default class Popup {
     this._popup.addEventListener("click", (evt) => {
       this._handleOverlayClickClose(evt);
     });
+    this._popup.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });
     const closeButton = this._popup.querySelector(".popup__button-close");
     closeButton.addEventListener("click", () => this.close());
   }
