@@ -1,8 +1,8 @@
 import { allElements } from "../scripts/elements.js";
+import { editPopup } from "../scripts/utils.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-import { FormValidator } from "../components/FormValidator.js";
-import { editPopup } from "../scripts/utils.js";
+import FormValidator from "../components/FormValidator.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
