@@ -1,5 +1,4 @@
 import { allElements } from "../scripts/elements.js";
-import { editPopup } from "../scripts/utils.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
@@ -7,16 +6,16 @@ import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-// ссылка на кнопку открытия попапа EDIT
-const editPopupOpen = document.querySelector(".profile__edit");
-// ссылка на input name в EDITFORM
-const nameInput = editPopup.querySelector(".popup__item_type_name");
-// ссылка на TITLE в разметке
-const nameTarget = document.querySelector(".profile__title");
-// ссылка на input about в EDITFORM
-const aboutInput = editPopup.querySelector(".popup__item_type_about");
-// ссылка на SUBTITLE в разметке
-const aboutTarget = document.querySelector(".profile__subtitle");
+import {
+  nameTarget,
+  aboutTarget,
+  editPopupOpen,
+  editPopup,
+  addPopup,
+  nameInput,
+  aboutInput,
+} from "../scripts/utils.js";
+
 // создаем экземпляр для EDIT FORM '8'
 const editFormPopup = new PopupWithForm(".popup_function_edit", () => {
   const inputsData = editFormPopup._getInputValues();
@@ -26,10 +25,11 @@ const editFormPopup = new PopupWithForm(".popup_function_edit", () => {
 editFormPopup.setEventListeners();
 // создаем экземпляр для ADD FORM '8'
 const addFormPopup = new PopupWithForm(".popup_function_add-element", () => {
+  const tempDataCard = addFormPopup._getInputValues();
   const dataCard = {
-    name: nameElementTarget.value,
-    alt: "Фотография " + nameElementTarget.value,
-    link: linkElementTarget.value,
+    name: tempDataCard["name-element"],
+    alt: "Фотография " + tempDataCard["name-element"],
+    link: tempDataCard["link-element"],
   };
   const element = new Card(
     {
@@ -63,8 +63,7 @@ editPopupOpen.addEventListener("click", function () {
   editForm.errorDisable();
   editCloseOpenPopup.open();
 });
-// ссылка на попап ADD
-const addPopup = document.querySelector(".popup_function_add-element");
+
 // ссылка на кнопку открытия попапа ADD
 const addPopupOpen = document.querySelector(".profile__button");
 // ссылка на input name в ADDFORM
