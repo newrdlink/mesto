@@ -2,7 +2,7 @@ import { allElements } from "../scripts/elements.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import { FormValidator } from "../components/FormValidator.js";
-import { openPopup, editPopup } from "../scripts/utils.js";
+import { editPopup } from "../scripts/utils.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -24,6 +24,29 @@ const editFormPopup = new PopupWithForm(".popup_function_edit", () => {
   editFormPopup.close();
 });
 editFormPopup.setEventListeners();
+// создаем экземпляр для ADD FORM '8'
+const addFormPopup = new PopupWithForm(".popup_function_add-element", () => {
+  const dataCard = {
+    name: nameElementTarget.value,
+    alt: "Фотография " + nameElementTarget.value,
+    link: linkElementTarget.value,
+  };
+  const element = new Card(
+    {
+      dataCard,
+      handleCardClick: () => {
+        popupWithImage.open(dataCard);
+      },
+    },
+    ".element-template"
+  );
+  const elementNew = element.makeCard();
+  elementContainer.prepend(elementNew);
+  addCloseOpenPopup.close();
+  //
+  addFormPopup.close();
+});
+addFormPopup.setEventListeners();
 // создаем экземпляр для UserInfo
 const userInfo = new UserInfo({
   name: nameTarget,
@@ -111,24 +134,3 @@ openedCloseOpenPopup.setEventListeners();
 // создаем экземпляр для попапа с IMAGE '8'
 const popupWithImage = new PopupWithImage(".popup_function_open-element");
 popupWithImage.setEventListeners();
-// добавление новой карточки '8'
-function popupAddHandler() {
-  const dataCard = {
-    name: nameElementTarget.value,
-    alt: "Фотография " + nameElementTarget.value,
-    link: linkElementTarget.value,
-  };
-  const element = new Card(
-    {
-      dataCard,
-      handleCardClick: () => {
-        popupWithImage.open(dataCard);
-      },
-    },
-    ".element-template"
-  );
-  const elementNew = element.makeCard();
-  elementContainer.prepend(elementNew);
-  addCloseOpenPopup.close();
-}
-addPopup.addEventListener("submit", popupAddHandler);
