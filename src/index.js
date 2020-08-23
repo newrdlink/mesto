@@ -1,3 +1,4 @@
+import "../styles/index.css";
 import { allElements } from "../scripts/elements.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";

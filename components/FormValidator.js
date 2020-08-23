@@ -9,21 +9,21 @@ export default class FormValidator {
     this._form = form;
   }
   // метод установки ошибки для input
-  _setError = (input, errorMessage) => {
+  _setError(input, errorMessage) {
     const errorPlace = this._form.querySelector(`#${input.name}-error`);
     input.classList.add(this._inputErrorClass);
     errorPlace.textContent = errorMessage;
     errorPlace.classList.add(this._errorClass);
-  };
+  }
   // метод выключения ошибки для input (снимаем красный цвет и выключаем ошибку)
-  _disableError = (input) => {
+  _disableError(input) {
     const errorPlace = this._form.querySelector(`#${input.name}-error`);
     input.classList.remove(this._inputErrorClass);
     errorPlace.textContent = "";
     errorPlace.classList.remove(this._errorClass);
-  };
+  }
   // метод проверки input на валидность
-  _checkInput = (input) => {
+  _checkInput(input) {
     const inputIsValid = input.validity.valid;
     if (inputIsValid) {
       this._disableError(input);
@@ -31,7 +31,7 @@ export default class FormValidator {
       const errorMessage = input.validationMessage;
       this._setError(input, errorMessage);
     }
-  };
+  }
   // метод проверки на наличие невалидного input
   _hasInvalidInput() {
     return this._inputAll.every((input) => {
@@ -39,7 +39,7 @@ export default class FormValidator {
     });
   }
   // метод переключения вида input при валидации
-  _toggleButtonState = () => {
+  _toggleButtonState() {
     const buttonElement = this._form.querySelector(this._submitButtonSelector);
     if (this._hasInvalidInput()) {
       buttonElement.classList.remove(this._inactiveButtonClass);
@@ -48,9 +48,9 @@ export default class FormValidator {
       buttonElement.classList.add(this._inactiveButtonClass);
       buttonElement.disabled = true;
     }
-  };
+  }
   // метод установки обработчиков на input
-  _setInputListeners = () => {
+  _setInputListeners() {
     this._inputAll = Array.from(
       this._form.querySelectorAll(this._inputSelector)
     );
@@ -61,7 +61,7 @@ export default class FormValidator {
         this._toggleButtonState();
       });
     });
-  };
+  }
   // метод блокировки кнопки Submit
   disableButton() {
     const buttonElement = this._form.querySelector(this._submitButtonSelector);

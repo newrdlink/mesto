@@ -1,0 +1,42 @@
+{
+  "name": "mesto",
+  "version": "1.0.8",
+  "description": "Work number 8",
+  "main": "index.js",
+  "scripts": {
+    "build": "rd /s /q dist && webpack",
+    "dev": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newrdlink/mesto.git"
+  },
+  "keywords": [
+    "Проектная",
+    "работа",
+    "№8"
+  ],
+  "author": "Roman Didukh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/newrdlink/mesto/issues"
+  },
+  "homepage": "https://github.com/newrdlink/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.2.1",
+    "file-loader": "^6.0.0",
+    "html-loader": "^1.2.1",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.10.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5"
+  }
+}

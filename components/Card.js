@@ -21,10 +21,10 @@ export default class Card {
       .classList.toggle("element__heart_active");
   }
   // метод удаления карточки
-  _handleRemoveCard = () => {
+  _handleRemoveCard(evt) {
     this._element.remove();
     this._element = null;
-  };
+  }
   // метод установки слушателей на элементы карточки
   _setEventListeners() {
     this._element
@@ -34,7 +34,9 @@ export default class Card {
       });
     this._element
       .querySelector(".element__basket")
-      .addEventListener("click", this._handleRemoveCard);
+      .addEventListener("click", (evt) => {
+        this._handleRemoveCard(evt);
+      });
     this._element
       .querySelector(".element__image")
       .addEventListener("click", () => {

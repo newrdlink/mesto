@@ -10,7 +10,6 @@
     />
     <meta name="author" content="Роман Дидух" />
     <title>Mesto Russia</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="root">
     <div class="page">
@@ -18,13 +17,13 @@
         <img
           alt="Логотип"
           class="header__logo"
-          src="./images/logo-header.svg"
+          src="../images/logo-header.svg"
         />
       </header>
       <main class="main">
         <section class="profile">
           <img
-            src="./images/image-kusto.jpg"
+            src="../images/image-kusto.jpg"
             alt=" Фотография Жак-Ив Кусто"
             class="profile__image"
           />
@@ -143,7 +142,11 @@
     </div>
     <template id="element" class="element-template">
       <li class="element">
-        <img src="" alt="" class="element__image" />
+        <img
+          src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg"
+          alt="Фотография"
+          class="element__image"
+        />
         <button type="button" class="element__basket"></button>
         <div class="element__content">
           <h3 class="element__title"></h3>
@@ -151,6 +154,5 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>
