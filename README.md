@@ -35,4 +35,4 @@
 - использование Wabpack;
 - использование JS для закрытие попапов с помощью кунопок клавиатуры;
 
-### Ссылка на проект на [Гитхаб](https://newrdlink.github.io/mesto/index.html)
+### Ссылка на проект на [Гитхаб](https://newrdlink.github.io/mesto/src/index.html)
