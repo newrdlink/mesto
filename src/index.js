@@ -26,9 +26,11 @@ editFormPopup.setEventListeners();
 const addFormPopup = new PopupWithForm(
   ".popup_function_add-element",
   (data) => {
-    data.name = data["name-element"];
-    data.alt = "Фотография " + data["name-element"];
-    data.link = data["link-element"];
+    data = {
+      name: data["name-element"],
+      alt: "Фотография " + data["name-element"],
+      link: data["link-element"],
+    };
 
     const element = new Card(
       {
