@@ -1,3 +1,6 @@
+// Добрый день, Семен! Дело в том, что на вторую итерацию я отправил
+// исправленный код, почему Вы не видите изменений, не знаю....
+// отправляю работу еще раз в том же виде. Спасибо!
 import "../styles/index.css";
 import { allElements } from "../scripts/elements.js";
 import Card from "../components/Card.js";
@@ -63,7 +66,6 @@ editPopupOpen.addEventListener("click", function () {
   editForm.errorDisable();
   editCloseOpenPopup.open();
 });
-
 // ссылка на кнопку открытия попапа ADD
 const addPopupOpen = document.querySelector(".profile__button");
 // ссылка на input name в ADDFORM
