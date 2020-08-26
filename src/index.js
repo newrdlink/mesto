@@ -1,8 +1,4 @@
-// Добрый день, Семен! Дело в том, что на вторую итерацию я отправил
-// исправленный код, почему Вы не видите изменений, не знаю....
-// отправляю работу еще раз в том же виде. Спасибо!
 import "../styles/index.css";
-import { allElements } from "../scripts/elements.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
@@ -10,6 +6,7 @@ import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import {
   nameTarget,
   aboutTarget,
@@ -101,28 +98,6 @@ const addForm = new FormValidator(validateConfigObject, addPopup);
 addForm.enableValidation();
 // контейнер всех карточек
 const elementContainer = document.querySelector(".elements");
-// инициализируем стартовык карточки - перебираем стартовый массив
-const cardList = new Section(
-  {
-    items: allElements,
-    renderer: (data) => {
-      const card = new Card(
-        {
-          data,
-          handleCardClick: () => {
-            popupWithImage.open(data);
-          },
-        },
-        ".element-template"
-      );
-      const cardElement = card.makeCard();
-      cardList.addItem(cardElement);
-    },
-  },
-  ".elements"
-);
-// рендерим стартовый массив
-cardList.renderItems();
 // создаем экземпляр для закрытия/открытия EDIT popup
 const editCloseOpenPopup = new Popup(".popup_function_edit");
 editCloseOpenPopup.setEventListeners();
@@ -135,3 +110,37 @@ openedCloseOpenPopup.setEventListeners();
 // создаем экземпляр для попапа с IMAGE
 const popupWithImage = new PopupWithImage(".popup_function_open-element");
 popupWithImage.setEventListeners();
+//создаем экземпляр API
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co",
+  headers: {
+    authorization: "27ead031-f9f7-43be-99b7-3296b8a48ff4",
+    "Content-Type": "application/json",
+  },
+});
+// рендерим загруженный массив
+api.getInitialCards().then((cardListBackend) => {  
+  const cardList = new Section(
+    {
+      items: cardListBackend,
+      renderer: (data) => {
+        const card = new Card(
+          {
+            data,
+            handleCardClick: () => {
+              popupWithImage.open(data);
+            },
+          },
+          ".element-template"
+        );
+        const cardElement = card.makeCard();
+        cardList.addItem(cardElement);
+      },
+    },
+    ".elements"
+  );
+  cardList.renderItems();
+});
+api.getUserData().then((userInfoBackend) => {  
+  userInfo.setUserInfo(userInfoBackend);
+});
