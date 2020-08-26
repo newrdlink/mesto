@@ -1,8 +1,13 @@
 .profile__image {
+  position: relative;
   height: 120px;
   width: 120px;
+  background: no-repeat center url(../../../images/image-kusto.jpg);
+  background-size: contain;
   border-radius: 50%;
   overflow: hidden;
+  outline: none;
+  border: none;
   grid-column: 1;
   grid-row: 1/5;
 }
@@ -13,4 +18,41 @@
     grid-row: 1;
     justify-items: center;
   }
+}
+
+.profile__image::before {
+  position: absolute;
+  height: 125px;
+  width: 125px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #000;
+  top: -2px;
+  left: -2px;
+  content: "";
+  opacity: 0;
+  transition: 0.1s linear opacity;
+}
+
+.profile__image:hover::before {
+  opacity: 0.6;
+}
+
+.profile__image::after {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: no-repeat center url(../../../images/pen-avatar.svg);
+  top: 0;
+  left: 0;
+  content: "";
+  opacity: 0;
+  transition: 0.1s linear opacity;
+}
+
+.profile__image:hover::after {
+  opacity: 1;
+  cursor: pointer;
 }

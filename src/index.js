@@ -15,38 +15,8 @@ import {
   addPopup,
   nameInput,
   aboutInput,
+  avatarButtonEdit,
 } from "../scripts/utils.js";
-// создаем экземпляр для EDIT FORM
-const editFormPopup = new PopupWithForm(".popup_function_edit", (data) => {
-  userInfo.setUserInfo(data);
-  editFormPopup.close();
-});
-editFormPopup.setEventListeners();
-// создаем экземпляр для ADD FORM
-const addFormPopup = new PopupWithForm(
-  ".popup_function_add-element",
-  (data) => {
-    data = {
-      name: data["name-element"],
-      alt: "Фотография " + data["name-element"],
-      link: data["link-element"],
-    };
-
-    const element = new Card(
-      {
-        data,
-        handleCardClick: () => {
-          popupWithImage.open(data);
-        },
-      },
-      ".element-template"
-    );
-    const elementNew = element.makeCard();
-    elementContainer.prepend(elementNew);
-    addCloseOpenPopup.close();
-  }
-);
-addFormPopup.setEventListeners();
 // создаем экземпляр для UserInfo
 const userInfo = new UserInfo({
   name: nameTarget,
@@ -119,7 +89,7 @@ const api = new Api({
   },
 });
 // рендерим загруженный массив
-api.getInitialCards().then((cardListBackend) => {  
+api.getInitialCards().then((cardListBackend) => {
   const cardList = new Section(
     {
       items: cardListBackend,
@@ -141,6 +111,39 @@ api.getInitialCards().then((cardListBackend) => {
   );
   cardList.renderItems();
 });
-api.getUserData().then((userInfoBackend) => {  
+api.getUserData().then((userInfoBackend) => {
   userInfo.setUserInfo(userInfoBackend);
 });
+// создаем экземпляр для EDIT FORM
+const editFormPopup = new PopupWithForm(".popup_function_edit", (data) => {
+  userInfo.setUserInfo(data);
+  api.patchUserData({ data });
+  editFormPopup.close();
+});
+editFormPopup.setEventListeners();
+// создаем экземпляр для ADD FORM
+const addFormPopup = new PopupWithForm(
+  ".popup_function_add-element",
+  (data) => {
+    data = {
+      name: data["name-element"],
+      alt: "Фотография " + data["name-element"],
+      link: data["link-element"],
+    };
+    const element = new Card(
+      {
+        data,
+        handleCardClick: () => {
+          popupWithImage.open(data);
+        },
+      },
+      ".element-template"
+    );
+    const elementNew = element.makeCard();
+    elementContainer.prepend(elementNew);
+    api.addNewCard({ data });
+    console.log(data)
+    addCloseOpenPopup.close();
+  }
+);
+addFormPopup.setEventListeners();

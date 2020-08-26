@@ -12,6 +12,8 @@ const nameTarget = document.querySelector(".profile__title");
 const aboutInput = editPopup.querySelector(".popup__item_type_about");
 // ссылка на SUBTITLE в разметке
 const aboutTarget = document.querySelector(".profile__subtitle");
+// ссылка на кнопку обновить аватар
+const avatarButtonEdit = document.querySelector(".profile__image");
 
 export {
   nameTarget,
@@ -21,4 +23,5 @@ export {
   addPopup,
   nameInput,
   aboutInput,
+  avatarButtonEdit,
 };

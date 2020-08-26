@@ -1,4 +1,5 @@
 .header__logo {
+  position: relative;
   margin: 0 0 40px;
 }
 
