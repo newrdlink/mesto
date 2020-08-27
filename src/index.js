@@ -16,6 +16,7 @@ import {
   nameInput,
   aboutInput,
   avatarButtonEdit,
+  quantityLikesCard,
 } from "../scripts/utils.js";
 // создаем экземпляр для UserInfo
 const userInfo = new UserInfo({
@@ -80,6 +81,9 @@ openedCloseOpenPopup.setEventListeners();
 // создаем экземпляр для попапа с IMAGE
 const popupWithImage = new PopupWithImage(".popup_function_open-element");
 popupWithImage.setEventListeners();
+// создаем экземпляр для закрытия/открытия EDIT popup
+const popupWithQuestion = new Popup(".popup_function_question");
+popupWithQuestion.setEventListeners();
 //создаем экземпляр API
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co",
@@ -90,6 +94,7 @@ const api = new Api({
 });
 // рендерим загруженный массив
 api.getInitialCards().then((cardListBackend) => {
+  console.log(cardListBackend[1].likes);
   const cardList = new Section(
     {
       items: cardListBackend,
@@ -142,7 +147,7 @@ const addFormPopup = new PopupWithForm(
     const elementNew = element.makeCard();
     elementContainer.prepend(elementNew);
     api.addNewCard({ data });
-    console.log(data)
+    console.log(data);
     addCloseOpenPopup.close();
   }
 );

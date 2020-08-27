@@ -1,10 +1,17 @@
 export default class Card {
-  constructor({ data, handleCardClick }, templateSelector) {
+  constructor(
+    { data, handleCardClick, handleCardLike, handleCardDislike },
+    templateSelector
+  ) {
     this._name = data.name;
     this._alt = `Фотография  ${data.name}`;
     this._link = data.link;
+    this._id = data._id;
+    this._likes = data.likes;
     this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector;
+    this._handleCardLike = handleCardLike;
+    this._handleCardDislike = handleCardDislike;
   }
   // получаем, копируем и возвращаем разметку всей карточки
   _getTemplateCard() {
@@ -25,6 +32,7 @@ export default class Card {
     this._element.remove();
     this._element = null;
   }
+  // метод отображения кол-во лайков карточки
   // метод установки слушателей на элементы карточки
   _setEventListeners() {
     this._element
@@ -51,6 +59,9 @@ export default class Card {
     image.src = this._link;
     image.alt = this._alt;
     this._element.querySelector(".element__title").textContent = this._name;
+    this._element.querySelector(
+      ".element__number-likes"
+    ).textContent = this._likes.length;
     return this._element;
   }
 }

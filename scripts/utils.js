@@ -14,6 +14,9 @@ const aboutInput = editPopup.querySelector(".popup__item_type_about");
 const aboutTarget = document.querySelector(".profile__subtitle");
 // ссылка на кнопку обновить аватар
 const avatarButtonEdit = document.querySelector(".profile__image");
+// ссылка на количество лайков
+const quantityLikesCard = document.querySelector(".element__number-likes");
+// ссылка на кнопку закрытия попапа с вопросом
 
 export {
   nameTarget,
@@ -24,4 +27,5 @@ export {
   nameInput,
   aboutInput,
   avatarButtonEdit,
+  quantityLikesCard,
 };

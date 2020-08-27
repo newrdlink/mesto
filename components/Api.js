@@ -73,4 +73,8 @@ export default class Api {
     });
     //.then((data) => console.log(data));
   }
+
+  likeCard(cardID) {}
+  
+  dislikeCard(cardID) {}
 }

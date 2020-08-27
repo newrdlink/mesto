@@ -118,6 +118,20 @@
         </form>
       </div>
     </section>
+    <section class="popup popup_function_question">
+      <div class="popup__container">
+        <button
+          type="button"
+          class="popup__button-close popup__button-close_place_question"
+        ></button>
+        <h2 class="popup__title">Вы уверены ?</h2>
+        <form name="add-element" action="url" class="popup__popup" novalidate>
+          <fieldset class="popup__content">
+            <button type="submit" class="popup__button">Да</button>
+          </fieldset>
+        </form>
+      </div>
+    </section>
     <div class="popup popup_function_open-element">
       <figure class="popup__image-content">
         <button
@@ -144,7 +158,10 @@
         <button type="button" class="element__basket"></button>
         <div class="element__content">
           <h3 class="element__title"></h3>
-          <button type="button" class="element__heart"></button>
+          <div class="element__likes">
+            <button type="button" class="element__heart"></button>
+            <span class="element__number-likes">1</span>
+          </div>
         </div>
       </li>
     </template>
