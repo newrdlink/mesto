@@ -96,7 +96,6 @@ export default class Card {
   }
   // создаем готовую карточку
   makeCard() {
-    //console.log(this._userInfo._id);
     this._element = this._getTemplateCard();
     this._setEventListeners();
     this._likesCardSee();

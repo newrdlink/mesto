@@ -64,7 +64,8 @@ api
       {
         name: nameTarget,
         about: aboutTarget,
-        avatar: avatarButtonEdit,        
+        avatar: avatarButtonEdit,
+        _id: "",
       },
       avatarButtonEdit
     );
@@ -181,7 +182,7 @@ api
           likes: [],
           _id: "",
           owner: {
-            _id: "cda20084ce007870e1f6050a",
+            _id: "",
           },
         };
         const element = new Card(
@@ -190,6 +191,33 @@ api
             handleCardClick: () => {
               popupWithImage.open(data);
             },
+            handleLikeCardClick: () => {
+              api.likeCard(card._id).then((telo) => {
+                card.updateLikesCard(telo.likes);
+              });
+            },
+            handleDislikeCardClick: () => {
+              api.dislikeCard(card._id).then((telo) => {
+                card.updateLikesCard(telo.likes);
+              });
+            },
+            handleDeleteCardClick: () => {
+              popupWithQuestion.open();
+              const popupWithQuestionForm = new PopupWithForm(
+                ".popup_function_question",
+                () => {
+                  api
+                    .removeCard(data._id)
+                    .then(() => {
+                      card.removeCard();
+                    })
+                    .catch((err) => console.error(err));
+                  popupWithQuestionForm.close();
+                }
+              );
+              popupWithQuestionForm.setEventListeners();
+            },
+            userInfo,
           },
           ".element-template"
         );
