@@ -6,6 +6,7 @@ export default class Card {
       handleLikeCardClick,
       handleDeleteCardClick,
       handleDislikeCardClick,
+      userInfo,
     },
     templateSelector
   ) {
@@ -20,6 +21,7 @@ export default class Card {
     this._handleLikeCardClick = handleLikeCardClick;
     this._handleDislikeCardClick = handleDislikeCardClick;
     this._handleDeleteCardClick = handleDeleteCardClick;
+    this._userInfo = userInfo;
   }
   // получаем, копируем и возвращаем разметку всей карточки
   _getTemplateCard() {
@@ -47,7 +49,7 @@ export default class Card {
   }
   // метод скрытия кнопки удаления, если не мы ее создали
   _hideBasketButton() {
-    if (this._ownerId !== "cda20084ce007870e1f6050a") {
+    if (this._ownerId !== this._userInfo._id) {
       this._element
         .querySelector(".element__basket")
         .classList.add("element__basket_hidden");
@@ -64,7 +66,7 @@ export default class Card {
     const userIdArray = this._likes.map((el) => {
       return el._id;
     });
-    if (userIdArray.some((item) => item == "cda20084ce007870e1f6050a")) {
+    if (userIdArray.some((item) => item == this._userInfo._id)) {
       this._handleLikeClick();
     }
   }
@@ -94,6 +96,7 @@ export default class Card {
   }
   // создаем готовую карточку
   makeCard() {
+    //console.log(this._userInfo._id);
     this._element = this._getTemplateCard();
     this._setEventListeners();
     this._likesCardSee();
