@@ -11,3 +11,7 @@
 .element__heart:hover {
   opacity: 0.6;
 }
+
+.element__heart:focus {
+  outline: none;
+}
