@@ -181,7 +181,7 @@ api
           likes: [],
           _id: "",
           owner: {
-            _id: "",
+            _id: "cda20084ce007870e1f6050a",
           },
         };
         const element = new Card(
