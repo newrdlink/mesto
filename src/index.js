@@ -72,7 +72,6 @@ api
     // вставляем данные юзера из полученных с сервера
     userInfo.setUserInfo(userInfoBackend, avatarButtonEdit);
     userInfo.setAvatar(userInfoBackend, avatarButtonEdit);
-    //console.log(userInfo);
     // создаем экземпляр для попапа с вопросос об удалении
     const popupWithQuestion = new Popup(".popup_function_question");
     popupWithQuestion.setEventListeners();

@@ -93,17 +93,18 @@ export default class Card {
       .addEventListener("click", () => {
         this._handleCardClick();
       });
+    this._hideBasketButton();
   }
   // создаем готовую карточку
   makeCard() {
     this._element = this._getTemplateCard();
-    this._setEventListeners();
     this._likesCardSee();
     this._ifCardWasLiked();
     const image = this._element.querySelector(".element__image");
     image.src = this._link;
     image.alt = this._alt;
     this._element.querySelector(".element__title").textContent = this._name;
+    this._setEventListeners();
     return this._element;
   }
 }
