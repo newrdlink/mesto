@@ -2,6 +2,10 @@
 const editPopup = document.querySelector(".popup_function_edit");
 // ссылка на попап ADD
 const addPopup = document.querySelector(".popup_function_add-element");
+// ссылка на попап EDIT AVATAR
+const editAvatar = document.querySelector(".popup_function_edit-avatar");
+// ссылка на input в EDIT AVATAR
+const avatarInput = editAvatar.querySelector(".popup__item_type_name");
 // ссылка на кнопку открытия попапа EDIT
 const editPopupOpen = document.querySelector(".profile__edit");
 // ссылка на input name в EDITFORM
@@ -24,8 +28,10 @@ export {
   editPopupOpen,
   editPopup,
   addPopup,
+  editAvatar,
   nameInput,
   aboutInput,
   avatarButtonEdit,
   quantityLikesCard,
+  avatarInput,
 };

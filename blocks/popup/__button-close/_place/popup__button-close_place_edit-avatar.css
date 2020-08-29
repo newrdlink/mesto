@@ -1,0 +1,5 @@
+.popup__button-close_place_edit-avatar {
+  left: 100%;
+  top: 0;
+  transform: translateY(-100%);
+}

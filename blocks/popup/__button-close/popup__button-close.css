@@ -2,6 +2,7 @@
 @import url(./_place/popup__button-close_place_add-element.css);
 @import url(./_place/popup__button-close_place_open-element.css);
 @import url(./_place/popup__button-close_place_question.css);
+@import url(./_place/popup__button-close_place_edit-avatar.css);
 
 .popup__button-close {
   display: block;

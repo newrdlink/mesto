@@ -1,13 +1,19 @@
 export default class Api {
-  constructor(options) {
-    this._optins = options;
+  constructor({ address }) {
+    this._address = address;
+    this._groupId = "cohort-14";
+    this._token = "27ead031-f9f7-43be-99b7-3296b8a48ff4";
+  }
+
+  getAppStartInfo() {
+    return Promise.all([this.getUserData(), this.getInitialCards()]);
   }
 
   getInitialCards() {
-    return fetch("https://mesto.nomoreparties.co/v1/cohort-14/cards", {
+    return fetch(`${this._address}/${this._groupId}/cards`, {
       method: "GET",
       headers: {
-        authorization: "27ead031-f9f7-43be-99b7-3296b8a48ff4",
+        authorization: this._token,
         "Content-Type": "application/json",
       },
     }).then((res) => {
@@ -16,14 +22,13 @@ export default class Api {
       }
       return Promise.reject(`Извините, ошибка: ${res.status}`);
     });
-    //.then((data) => console.log(data));
   }
 
   getUserData() {
-    return fetch("https://mesto.nomoreparties.co/v1/cohort-14/users/me", {
+    return fetch(`${this._address}/${this._groupId}/users/me`, {
       method: "GET",
       headers: {
-        authorization: "27ead031-f9f7-43be-99b7-3296b8a48ff4",
+        authorization: this._token,
       },
     }).then((res) => {
       if (res.ok) {
@@ -31,14 +36,13 @@ export default class Api {
       }
       return Promise.reject(`Извините, ошибка: ${res.status}`);
     });
-    //.then((data) => console.log(data));
   }
 
   patchUserData({ data }) {
-    return fetch("https://mesto.nomoreparties.co/v1/cohort-14/users/me", {
+    return fetch(`${this._address}/${this._groupId}/users/me`, {
       method: "PATCH",
       headers: {
-        authorization: "27ead031-f9f7-43be-99b7-3296b8a48ff4",
+        authorization: this._token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -51,14 +55,13 @@ export default class Api {
       }
       return Promise.reject(`Извините, ошибка: ${res.status}`);
     });
-    //.then((data) => console.log(data));
   }
 
   addNewCard({ data }) {
-    return fetch("https://mesto.nomoreparties.co/v1/cohort-14/cards", {
+    return fetch(`${this._address}/${this._groupId}/cards`, {
       method: "POST",
       headers: {
-        authorization: "27ead031-f9f7-43be-99b7-3296b8a48ff4",
+        authorization: this._token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -71,10 +74,67 @@ export default class Api {
       }
       return Promise.reject(`Извините, ошибка: ${res.status}`);
     });
-    //.then((data) => console.log(data));
   }
 
-  likeCard(cardID) {}
-  
-  dislikeCard(cardID) {}
+  changeAvatar({ data }) {
+    return fetch(`${this._address}/${this._groupId}/users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar: data.link,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Извините, ошибка: ${res.status}`);
+    });
+  }
+
+  removeCard(cardID) {
+    return fetch(`${this._address}/${this._groupId}/cards/${cardID}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Извините, ошибка: ${res.status}`);
+    });
+  }
+
+  likeCard(cardID) {
+    return fetch(`${this._address}/${this._groupId}/cards/likes/${cardID}`, {
+      method: "PUT",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Извините, ошибка: ${res.status}`);
+    });
+  }
+  dislikeCard(cardID) {
+    return fetch(`${this._address}/${this._groupId}/cards/likes/${cardID}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Извините, ошибка: ${res.status}`);
+    });
+  }
 }

@@ -4,6 +4,7 @@
 @import url(./__heart/element__heart.css);
 @import url(./__heart/_active/element__heart_active.css);
 @import url(./__basket/element__basket.css);
+@import url(./__basket/_hidden/element__basket_hidden.css);
 @import url(./__likes/element__likes.css);
 @import url(./__number-likes/element__number-likes.css);
 

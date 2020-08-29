@@ -62,11 +62,36 @@ export default class FormValidator {
       });
     });
   }
-  // метод блокировки кнопки Submit
+  // // метод блокировки кнопки Submit
   disableButton() {
     const buttonElement = this._form.querySelector(this._submitButtonSelector);
     buttonElement.classList.add(this._inactiveButtonClass);
     buttonElement.disabled = true;
+  }
+  // метод изменения контента кнокпи при сохранении
+  renameButtonSubmit() {
+    const buttonElement = this._form.querySelector(this._submitButtonSelector);
+    buttonElement.textContent = "Сохранение ...";
+    this._toggleButtonState();
+  }
+  // метод изменения контента кнокпи при сохранении
+  renameButtonSubmitBack() {
+    const buttonElement = this._form.querySelector(this._submitButtonSelector);
+    buttonElement.textContent = "Сохранить";
+  }
+  // метод блокирования inputs при сабмите
+  disableInputs() {
+    const inputs = this._form.querySelectorAll(this._inputSelector);
+    inputs.forEach((item) => {
+      item.disabled = true;
+    });
+  }
+  // метод разблокировки inputs
+  enableInputs() {
+    const inputs = this._form.querySelectorAll(this._inputSelector);
+    inputs.forEach((item) => {
+      item.disabled = false;
+    });
   }
   // метод очистки ошибок полей
   errorDisable() {
