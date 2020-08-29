@@ -1,8 +1,8 @@
 export default class Api {
-  constructor({ address }) {
-    this._address = address;
+  constructor({ address, headers }) {
+    this.address = address;
+    this.headers = headers;
     this._groupId = "cohort-14";
-    this._token = "27ead031-f9f7-43be-99b7-3296b8a48ff4";
   }
 
   getAppStartInfo() {
@@ -10,12 +10,9 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._address}/${this._groupId}/cards`, {
+    return fetch(`${this.address}/${this._groupId}/cards`, {
       method: "GET",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
+      headers: this.headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -25,11 +22,9 @@ export default class Api {
   }
 
   getUserData() {
-    return fetch(`${this._address}/${this._groupId}/users/me`, {
+    return fetch(`${this.address}/${this._groupId}/users/me`, {
       method: "GET",
-      headers: {
-        authorization: this._token,
-      },
+      headers: this.headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -39,12 +34,9 @@ export default class Api {
   }
 
   patchUserData({ data }) {
-    return fetch(`${this._address}/${this._groupId}/users/me`, {
+    return fetch(`${this.address}/${this._groupId}/users/me`, {
       method: "PATCH",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
+      headers: this.headers,
       body: JSON.stringify({
         name: data.name,
         about: data.about,
@@ -58,12 +50,9 @@ export default class Api {
   }
 
   addNewCard({ data }) {
-    return fetch(`${this._address}/${this._groupId}/cards`, {
+    return fetch(`${this.address}/${this._groupId}/cards`, {
       method: "POST",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
+      headers: this.headers,
       body: JSON.stringify({
         name: data.name,
         link: data.link,
@@ -76,15 +65,12 @@ export default class Api {
     });
   }
 
-  changeAvatar({ data }) {
-    return fetch(`${this._address}/${this._groupId}/users/me/avatar`, {
+  changeAvatar(data) {
+    return fetch(`${this.address}/${this._groupId}/users/me/avatar`, {
       method: "PATCH",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
+      headers: this.headers,
       body: JSON.stringify({
-        avatar: data.link,
+        avatar: data.avatar,
       }),
     }).then((res) => {
       if (res.ok) {
@@ -95,12 +81,9 @@ export default class Api {
   }
 
   removeCard(cardID) {
-    return fetch(`${this._address}/${this._groupId}/cards/${cardID}`, {
+    return fetch(`${this.address}/${this._groupId}/cards/${cardID}`, {
       method: "DELETE",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
+      headers: this.headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -110,12 +93,9 @@ export default class Api {
   }
 
   likeCard(cardID) {
-    return fetch(`${this._address}/${this._groupId}/cards/likes/${cardID}`, {
+    return fetch(`${this.address}/${this._groupId}/cards/likes/${cardID}`, {
       method: "PUT",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
+      headers: this.headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -123,13 +103,11 @@ export default class Api {
       return Promise.reject(`Извините, ошибка: ${res.status}`);
     });
   }
+
   dislikeCard(cardID) {
-    return fetch(`${this._address}/${this._groupId}/cards/likes/${cardID}`, {
+    return fetch(`${this.address}/${this._groupId}/cards/likes/${cardID}`, {
       method: "DELETE",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
+      headers: this.headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();

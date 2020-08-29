@@ -17,10 +17,8 @@ import {
   nameInput,
   aboutInput,
   avatarButtonEdit,
-  quantityLikesCard,
   avatarInput,
 } from "../scripts/utils.js";
-
 // ссылка на кнопку открытия попапа ADD
 const addPopupOpen = document.querySelector(".profile__button");
 // ссылка на input name в ADDFORM
@@ -46,34 +44,38 @@ editForm.enableValidation();
 // создаем экземпляр валидации и запускаем для ADD FORM
 const addForm = new FormValidator(validateConfigObject, addPopup);
 addForm.enableValidation();
-// создаем экземпляр валидации и запускаем для EDIT FORM
-const editFormAvatar = new FormValidator(validateConfigObject, editAvatar);
-editFormAvatar.enableValidation();
 // контейнер всех карточек
 const elementContainer = document.querySelector(".elements");
 //создаем экземпляр API
 const api = new Api({
   address: "https://mesto.nomoreparties.co/v1",
+  headers: {
+    authorization: "27ead031-f9f7-43be-99b7-3296b8a48ff4",
+    "Content-Type": "application/json",
+  },
 });
-// на основе вебинара //
+//
 api
   .getAppStartInfo()
   .then((res) => {
     const [userInfoBackend, cardsBackend] = res;
     // создаем экземпляр для UserInfo
-    const userInfo = new UserInfo({
-      name: nameTarget,
-      about: aboutTarget,
-      //avatar: avatarButtonEdit,
-    });
+    const userInfo = new UserInfo(
+      {
+        name: nameTarget,
+        about: aboutTarget,
+        avatar: avatarButtonEdit,
+      },
+      avatarButtonEdit
+    );
     // вставляем данные юзера из полученных с сервера
-    userInfo.setUserInfo(userInfoBackend);
+    userInfo.setUserInfo(userInfoBackend, avatarButtonEdit);
+    userInfo.setAvatar(userInfoBackend, avatarButtonEdit);
     // создаем экземпляр для попапа с вопросос об удалении
     const popupWithQuestion = new Popup(".popup_function_question");
     popupWithQuestion.setEventListeners();
     // создаем экземпляр для попапа с IMAGE
     const popupWithImage = new PopupWithImage(".popup_function_open-element");
-    //
     const cardList = new Section(
       {
         items: cardsBackend,
@@ -122,19 +124,32 @@ api
     cardList.renderItems();
     return {
       userInfo,
-      userInfoBackend,
-      cardsBackend,
       popupWithImage,
     };
   })
   .then((res) => {
-    const { userInfo, userInfoBackend, cardsBackend, popupWithImage } = res;
-    //
+    const { userInfo, popupWithImage } = res;
+    // экземпляр открытияч закрытия попапа для аватара
     const editAvatarCloseOpenPopup = new Popup(".popup_function_edit-avatar");
     editAvatarCloseOpenPopup.setEventListeners();
+    // создаем экземпляр валидации и запускаем для EDIT AVATAR
+    const editFormAvatar = new FormValidator(validateConfigObject, editAvatar);
+    editFormAvatar.enableValidation();
+    // создаем экземпляр для загрузки аватара
+    const editAvatarSubmit = new PopupWithForm(
+      ".popup_function_edit-avatar",
+      (data) => {
+        api.changeAvatar(data).then((res) => {
+          avatarButtonEdit.style.backgroundImage = `url(${res.avatar})`;
+          editAvatarCloseOpenPopup.close();
+        });
+      }
+    );
+    editAvatarSubmit.setEventListeners();
     // открытие попапа для редактирования аватара
     avatarButtonEdit.addEventListener("click", () => {
       editAvatarCloseOpenPopup.open();
+      editFormAvatar.disableButton();
       avatarInput.value = "";
       editFormAvatar.errorDisable();
     });
@@ -183,10 +198,10 @@ api
       }
     );
     addFormPopup.setEventListeners();
-    return { userInfo, openedCloseOpenPopup };
+    return { userInfo };
   })
   .then((res) => {
-    const { userInfo, openedCloseOpenPopup } = res;
+    const { userInfo } = res;
     // создаем экземпляр для закрытия/открытия EDIT popup
     const editCloseOpenPopup = new Popup(".popup_function_edit");
     editCloseOpenPopup.setEventListeners();
@@ -217,4 +232,3 @@ api
     editFormPopup.setEventListeners();
   })
   .catch((err) => console.error(err));
-console.log("Это все");
