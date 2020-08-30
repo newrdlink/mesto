@@ -54,8 +54,8 @@ export default class Api {
       method: "POST",
       headers: this.headers,
       body: JSON.stringify({
-        name: data.name,
-        link: data.link,
+        name: data["name-element"],
+        link: data["link-element"],
       }),
     }).then((res) => {
       if (res.ok) {

@@ -15,6 +15,13 @@ export default class UserInfo {
     };
   }
 
+  getNewCardInfo() {
+    return {
+      // name: this._nameUser,
+      // link: 
+    }
+  }
+
   setUserInfo({ name, about, avatar, _id }) {
     this._nameUser.textContent = name;
     this._aboutUser.textContent = about;

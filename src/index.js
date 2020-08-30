@@ -86,6 +86,7 @@ api
               data,
               handleCardClick: () => {
                 popupWithImage.open(data);
+                //console.log(data);
               },
               handleLikeCardClick: () => {
                 api.likeCard(card._id).then((telo) => {
@@ -127,10 +128,11 @@ api
     return {
       userInfo,
       popupWithImage,
+      popupWithQuestion,
     };
   })
   .then((res) => {
-    const { userInfo, popupWithImage } = res;
+    const { userInfo, popupWithImage, popupWithQuestion } = res;
     // экземпляр открытияч закрытия попапа для аватара
     const editAvatarCloseOpenPopup = new Popup(".popup_function_edit-avatar");
     editAvatarCloseOpenPopup.setEventListeners();
@@ -174,56 +176,48 @@ api
     const addFormPopup = new PopupWithForm(
       ".popup_function_add-element",
       (data) => {
-        data = {
-          name: data["name-element"],
-          alt: "Фотография " + data["name-element"],
-          link: data["link-element"],
-          likes: [],
-          _id: "",
-          owner: {
-            _id: "cda20084ce007870e1f6050a",
-          },
-        };
-        const element = new Card(
-          {
-            data,
-            handleCardClick: () => {
-              popupWithImage.open(data);
+        api.addNewCard({ data }).then((data) => {
+          const element = new Card(
+            {
+              data,
+              handleCardClick: () => {
+                popupWithImage.open(data);
+                console.log("1");
+              },
+              handleLikeCardClick: () => {
+                api.likeCard(element._id).then((telo) => {
+                  element.updateLikesCard(telo.likes);
+                });
+              },
+              handleDislikeCardClick: () => {
+                api.dislikeCard(data._id).then((telo) => {
+                  element.updateLikesCard(telo.likes);
+                });
+              },
+              handleDeleteCardClick: () => {
+                popupWithQuestion.open();
+                const popupWithQuestionForm = new PopupWithForm(
+                  ".popup_function_question",
+                  () => {
+                    api
+                      .removeCard(data._id)
+                      .then(() => {
+                        element.removeCard();
+                      })
+                      .catch((err) => console.error(err));
+                    popupWithQuestionForm.close();
+                  }
+                );
+                popupWithQuestionForm.setEventListeners();
+              },
+              userInfo,
             },
-            handleLikeCardClick: () => {
-              api.likeCard(card._id).then((telo) => {
-                card.updateLikesCard(telo.likes);
-              });
-            },
-            handleDislikeCardClick: () => {
-              api.dislikeCard(card._id).then((telo) => {
-                card.updateLikesCard(telo.likes);
-              });
-            },
-            handleDeleteCardClick: () => {
-              popupWithQuestion.open();
-              const popupWithQuestionForm = new PopupWithForm(
-                ".popup_function_question",
-                () => {
-                  api
-                    .removeCard(data._id)
-                    .then(() => {
-                      card.removeCard();
-                    })
-                    .catch((err) => console.error(err));
-                  popupWithQuestionForm.close();
-                }
-              );
-              popupWithQuestionForm.setEventListeners();
-            },
-            userInfo,
-          },
-          ".element-template"
-        );
-        const elementNew = element.makeCard();
-        elementContainer.prepend(elementNew);
-        api.addNewCard({ data });
-        addCloseOpenPopup.close();
+            ".element-template"
+          );
+          const elementNew = element.makeCard();
+          elementContainer.prepend(elementNew);
+          addCloseOpenPopup.close();
+        });
       }
     );
     addFormPopup.setEventListeners();
