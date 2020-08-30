@@ -1,3 +1,4 @@
 .popup__item-error_visible {
-  display: inline;
+  padding-top: 5px;
+  display: block;
 }
