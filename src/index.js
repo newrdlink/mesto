@@ -86,17 +86,22 @@ api
               data,
               handleCardClick: () => {
                 popupWithImage.open(data);
-                //console.log(data);
               },
               handleLikeCardClick: () => {
-                api.likeCard(card._id).then((telo) => {
-                  card.updateLikesCard(telo.likes);
-                });
+                api
+                  .likeCard(card._id)
+                  .then((telo) => {
+                    card.updateLikesCard(telo.likes);
+                  })
+                  .catch((err) => console.error(err));
               },
               handleDislikeCardClick: () => {
-                api.dislikeCard(card._id).then((telo) => {
-                  card.updateLikesCard(telo.likes);
-                });
+                api
+                  .dislikeCard(card._id)
+                  .then((telo) => {
+                    card.updateLikesCard(telo.likes);
+                  })
+                  .catch((err) => console.error(err));
               },
               handleDeleteCardClick: () => {
                 popupWithQuestion.open();
@@ -107,9 +112,9 @@ api
                       .removeCard(data._id)
                       .then(() => {
                         card.removeCard();
+                        popupWithQuestionForm.close();
                       })
                       .catch((err) => console.error(err));
-                    popupWithQuestionForm.close();
                   }
                 );
                 popupWithQuestionForm.setEventListeners();
@@ -131,6 +136,7 @@ api
       popupWithQuestion,
     };
   })
+  .catch((err) => console.error(err))
   .then((res) => {
     const { userInfo, popupWithImage, popupWithQuestion } = res;
     // экземпляр открытияч закрытия попапа для аватара
@@ -143,15 +149,20 @@ api
     const editAvatarSubmit = new PopupWithForm(
       ".popup_function_edit-avatar",
       (data) => {
-        api.changeAvatar(data).then((res) => {
-          avatarButtonEdit.style.backgroundImage = `url(${res.avatar})`;
-          editAvatarCloseOpenPopup.close();
-        });
+        editFormAvatar.renameButtonSubmit();
+        api
+          .changeAvatar(data)
+          .then((res) => {
+            avatarButtonEdit.style.backgroundImage = `url(${res.avatar})`;
+            editAvatarCloseOpenPopup.close();
+          })
+          .catch((err) => console.error(err));
       }
     );
     editAvatarSubmit.setEventListeners();
     // открытие попапа для редактирования аватара
     avatarButtonEdit.addEventListener("click", () => {
+      editFormAvatar.renameButtonSubmitBack();
       editAvatarCloseOpenPopup.open();
       editFormAvatar.disableButton();
       avatarInput.value = "";
@@ -166,6 +177,7 @@ api
     openedCloseOpenPopup.setEventListeners();
     // слушатель для открытия попапа ADD
     addPopupOpen.addEventListener("click", function () {
+      addForm.renameButtonSubmitBack();
       nameElementTarget.value = "";
       linkElementTarget.value = "";
       addForm.disableButton();
@@ -176,53 +188,63 @@ api
     const addFormPopup = new PopupWithForm(
       ".popup_function_add-element",
       (data) => {
-        api.addNewCard({ data }).then((data) => {
-          const element = new Card(
-            {
-              data,
-              handleCardClick: () => {
-                popupWithImage.open(data);
-                console.log("1");
+        addForm.renameButtonSubmit();
+        api
+          .addNewCard({ data })
+          .then((data) => {
+            const element = new Card(
+              {
+                data,
+                handleCardClick: () => {
+                  popupWithImage.open(data);
+                },
+                handleLikeCardClick: () => {
+                  api
+                    .likeCard(element._id)
+                    .then((telo) => {
+                      element.updateLikesCard(telo.likes);
+                    })
+                    .catch((err) => console.error(err));
+                },
+                handleDislikeCardClick: () => {
+                  api
+                    .dislikeCard(data._id)
+                    .then((telo) => {
+                      element.updateLikesCard(telo.likes);
+                    })
+                    .catch((err) => console.error(err));
+                },
+                handleDeleteCardClick: () => {
+                  popupWithQuestion.open();
+                  const popupWithQuestionForm = new PopupWithForm(
+                    ".popup_function_question",
+                    () => {
+                      api
+                        .removeCard(data._id)
+                        .then(() => {
+                          element.removeCard();
+                          popupWithQuestionForm.close();
+                        })
+                        .catch((err) => console.error(err));
+                    }
+                  );
+                  popupWithQuestionForm.setEventListeners();
+                },
+                userInfo,
               },
-              handleLikeCardClick: () => {
-                api.likeCard(element._id).then((telo) => {
-                  element.updateLikesCard(telo.likes);
-                });
-              },
-              handleDislikeCardClick: () => {
-                api.dislikeCard(data._id).then((telo) => {
-                  element.updateLikesCard(telo.likes);
-                });
-              },
-              handleDeleteCardClick: () => {
-                popupWithQuestion.open();
-                const popupWithQuestionForm = new PopupWithForm(
-                  ".popup_function_question",
-                  () => {
-                    api
-                      .removeCard(data._id)
-                      .then(() => {
-                        element.removeCard();
-                      })
-                      .catch((err) => console.error(err));
-                    popupWithQuestionForm.close();
-                  }
-                );
-                popupWithQuestionForm.setEventListeners();
-              },
-              userInfo,
-            },
-            ".element-template"
-          );
-          const elementNew = element.makeCard();
-          elementContainer.prepend(elementNew);
-          addCloseOpenPopup.close();
-        });
+              ".element-template"
+            );
+            const elementNew = element.makeCard();
+            elementContainer.prepend(elementNew);
+            addCloseOpenPopup.close();
+          })
+          .catch((err) => console.error(err));
       }
     );
     addFormPopup.setEventListeners();
     return { userInfo };
   })
+  .catch((err) => console.error(err))
   .then((res) => {
     const { userInfo } = res;
     // создаем экземпляр для закрытия/открытия EDIT popup
@@ -230,11 +252,9 @@ api
     editCloseOpenPopup.setEventListeners();
     // открытие попапа EDIT
     editPopupOpen.addEventListener("click", function () {
-      // записываем данные USER с разметки в объект
-      const infoProfile = userInfo.getUserInfo();
       // записываем данные в inputs при открытии EDIT FORM
-      nameInput.value = infoProfile.name;
-      aboutInput.value = infoProfile.about;
+      nameInput.value = userInfo._nameUser.textContent;
+      aboutInput.value = userInfo._aboutUser.textContent;
       editForm.renameButtonSubmitBack();
       editForm.enableInputs();
       editForm.disableButton();
@@ -243,14 +263,17 @@ api
     });
     // создаем экземпляр для EDIT FORM
     const editFormPopup = new PopupWithForm(".popup_function_edit", (data) => {
-      userInfo.setUserInfo(data);
-      api.patchUserData({ data });
+      //userInfo.setUserInfo(data);
+      api
+        .patchUserData({ data })
+        .then((res) => {
+          userInfo.setUserInfo(res);
+          editFormPopup.close();
+        })
+        .catch((err) => console.error(err));
       editForm.disableButton();
       editForm.disableInputs();
       editForm.renameButtonSubmit();
-      setTimeout(() => {
-        editFormPopup.close();
-      }, 1000);
     });
     editFormPopup.setEventListeners();
   })
